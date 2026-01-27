@@ -108,9 +108,9 @@ export const StyledEmailLink = styled.a`
   text-orientation: mixed;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  font-family: var(--font-jetbrains-mono), 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 13px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   z-index: 20;
   transition: all 0.3s ease;
   pointer-events: auto;

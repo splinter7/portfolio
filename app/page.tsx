@@ -91,16 +91,28 @@ export default function Home() {
       <ScrollSectionProvider>
         <StyledMain>
           <ScrollSection sectionId="hero">
-          <StyledHero>
-            <StyledName>Stewart Small</StyledName>
-            <StyledTitle>
-              Senior Frontend / Website Engineer
-            </StyledTitle>
-            <StyledSubtitle>
-              I build fast, accessible, high-quality web experiences —
-              with a particular focus on audio, AI-driven products, and UX polish.
-            </StyledSubtitle>
-          </StyledHero>
+            <StyledHero>
+              <StyledName>Stewart Small</StyledName>
+              <StyledTitle>
+                Senior Frontend / Website Engineer
+              </StyledTitle>
+              <StyledSubtitle>
+                I build fast, accessible, high-quality web experiences —
+                with a particular focus on audio, AI-driven products, and UX polish.
+              </StyledSubtitle>
+            </StyledHero>
+          </ScrollSection>
+
+        <ScrollSection sectionId="about">
+          <StyledSection>
+            <StyledHeading>About</StyledHeading>
+            <StyledText>
+              This is a placeholder About section where I’ll share a bit more
+              about my background, how I approach building products, and what
+              I’m currently focused on. For now, imagine a concise overview of
+              my experience, values, and the kind of work that excites me.
+            </StyledText>
+          </StyledSection>
         </ScrollSection>
 
         <ScrollSection sectionId="featured-project">
@@ -128,6 +140,28 @@ export default function Home() {
                 </StyledCardText>
                 <StyledStack>
                   Vanilla JavaScript · HTML · CSS
+                </StyledStack>
+              </StyledCard>
+
+              <StyledCard>
+                <StyledCardTitle>Project Title</StyledCardTitle>
+                <StyledCardText>
+                  A short description of the project, what problem it solves,
+                  and any notable technical or design decisions.
+                </StyledCardText>
+                <StyledStack>
+                  Tech · Stack · Here
+                </StyledStack>
+              </StyledCard>
+
+              <StyledCard>
+                <StyledCardTitle>Project Title</StyledCardTitle>
+                <StyledCardText>
+                  A short description of the project, what problem it solves,
+                  and any notable technical or design decisions.
+                </StyledCardText>
+                <StyledStack>
+                  Tech · Stack · Here
                 </StyledStack>
               </StyledCard>
             </StyledCardsContainer>

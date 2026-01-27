@@ -16,18 +16,22 @@ import {
 // Helper function to calculate scroll position for a section
 const calculateScrollPosition = (sectionId: string, element: HTMLElement): number => {
   const rect = element.getBoundingClientRect();
-  const isMobile = window.innerWidth <= 768;
   const isFeaturedProject = sectionId === 'featured-project';
-  
-  if (isMobile && isFeaturedProject) {
-    // On mobile, scroll to top of featured-project section with nav bar offset
-    const navElement = document.querySelector('nav');
-    const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
-    return rect.top + window.scrollY - navHeight;
-  } else {
-    // On desktop or other sections, center the section
-    return rect.top + window.scrollY - window.innerHeight / 2 + rect.height / 2;
+  const navElement = document.querySelector('nav');
+  const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
+
+  if (isFeaturedProject) {
+    // Scroll so the section heading (h2) lands below the nav — use heading position when available so
+    // we're correct for all viewports (section top varies due to centering/padding)
+    const BUFFER_PX = 24;
+    const heading = element.querySelector('h2');
+    const scrollPosition = heading
+      ? heading.getBoundingClientRect().top + window.scrollY - navHeight - BUFFER_PX
+      : rect.top + window.scrollY - navHeight - BUFFER_PX;
+    return scrollPosition;
   }
+  // Other sections: center the section in the viewport
+  return rect.top + window.scrollY - window.innerHeight / 2 + rect.height / 2;
 };
 
 export default function Navigation() {
@@ -36,7 +40,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'featured-project', 'experience'];
+      const sections = ['hero', 'about', 'featured-project', 'experience'];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const sectionId of sections) {
@@ -85,15 +89,13 @@ export default function Navigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Set a flag to indicate navigation is in progress (will be read by ScrollSection)
-      // We'll use a custom event to communicate between components
       window.dispatchEvent(new CustomEvent('navigation-start', { detail: { sectionId } }));
-      
       const scrollPosition = calculateScrollPosition(sectionId, element);
-      
+      // Use instant scroll for featured-project so we hit the target exactly (smooth scroll was falling short at some widths)
+      const useInstantScroll = sectionId === 'featured-project';
       window.scrollTo({
         top: scrollPosition,
-        behavior: 'smooth',
+        behavior: useInstantScroll ? 'auto' : 'smooth',
       });
       setIsMenuOpen(false); // Close menu after navigation
     }
@@ -115,6 +117,18 @@ export default function Navigation() {
       </StyledNavItem>
       <StyledNavItem>
         <StyledNavLink
+          href="#about"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection('about');
+          }}
+          $isActive={activeSection === 'about'}
+        >
+          02. About
+        </StyledNavLink>
+      </StyledNavItem>
+      <StyledNavItem>
+        <StyledNavLink
           href="#featured-project"
           onClick={(e) => {
             e.preventDefault();
@@ -122,7 +136,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === 'featured-project'}
         >
-          02. Featured Projects
+          03. Featured Projects
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -134,7 +148,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === 'experience'}
         >
-          03. Experience
+          04. Experience
         </StyledNavLink>
       </StyledNavItem>
     </>
