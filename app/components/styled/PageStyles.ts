@@ -258,6 +258,11 @@ export const StyledNavLogo = styled.div`
   color: #ffffff;
   letter-spacing: 0.05em;
   margin: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(255, 247, 98);
+  }
 
   @media (max-width: 768px) {
     font-size: 24px;
@@ -371,7 +376,7 @@ export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
   }
 `;
 
-export const StyledFooter = styled.footer`
+export const StyledFooter = styled.footer<{ $isVisible?: boolean }>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -385,6 +390,10 @@ export const StyledFooter = styled.footer`
   text-align: center;
   z-index: 15;
   pointer-events: none;
+  opacity: ${props => props.$isVisible ? 1 : 0};
+  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(20px)'};
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  visibility: ${props => props.$isVisible ? 'visible' : 'hidden'};
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -392,6 +401,9 @@ export const StyledFooter = styled.footer`
     background-color: rgba(44, 45, 68, 0.3);
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
   }
 `;
 

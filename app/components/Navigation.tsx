@@ -110,7 +110,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === 'hero'}
         >
-          01. About
+          01. Home
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -143,7 +143,19 @@ export default function Navigation() {
   return (
     <StyledNav>
       <StyledNavContent>
-        <StyledNavLogo>AEON</StyledNavLogo>
+        <StyledNavLogo
+          onClick={() => scrollToSection('hero')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              scrollToSection('hero');
+            }
+          }}
+        >
+          AEON
+        </StyledNavLogo>
         <StyledNavList>
           {navLinks}
         </StyledNavList>

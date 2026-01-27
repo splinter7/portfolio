@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import ParticleBackground from './components/ParticleBackground';
 import Navigation from './components/Navigation';
 import ScrollSection, { ScrollSectionProvider } from './components/ScrollSection';
@@ -31,6 +32,34 @@ import {
 } from './components/styled/PageStyles';
 
 export default function Home() {
+  const [showFooter, setShowFooter] = useState(false);
+
+  useEffect(() => {
+    const checkScrollPosition = () => {
+      const experienceSection = document.getElementById('experience');
+      if (!experienceSection) return;
+
+      const rect = experienceSection.getBoundingClientRect();
+      const sectionBottom = rect.bottom;
+      const viewportHeight = window.innerHeight;
+      
+      // Show footer when the bottom of the experience section is at or past the bottom of the viewport
+      // with a small threshold to trigger slightly before fully scrolled
+      const threshold = 50; // pixels
+      setShowFooter(sectionBottom <= viewportHeight + threshold);
+    };
+
+    // Check on mount and scroll
+    checkScrollPosition();
+    window.addEventListener('scroll', checkScrollPosition, { passive: true });
+    window.addEventListener('resize', checkScrollPosition, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', checkScrollPosition);
+      window.removeEventListener('resize', checkScrollPosition);
+    };
+  }, []);
+
   return (
     <>
       <ParticleBackground />
@@ -82,8 +111,8 @@ export default function Home() {
                 <StyledCardTitle>Real-Time Audio Streaming Web App</StyledCardTitle>
                 <StyledCardText>
                   A low-latency audio streaming application built with React and Node.js.
-                  Focused on UX polish, resilient playback, and real-time delivery using
-                  chunked audio and WebRTC-based techniques.
+                  Focused on resilient playback, and real-time delivery using
+                  chunked audio and WebRTC.
                 </StyledCardText>
                 <StyledStack>
                   React · Node.js · WebRTC
@@ -91,14 +120,14 @@ export default function Home() {
               </StyledCard>
 
               <StyledCard>
-                <StyledCardTitle>Real-Time Audio Streaming Web App</StyledCardTitle>
+                <StyledCardTitle>JCarousel</StyledCardTitle>
                 <StyledCardText>
-                  A low-latency audio streaming application built with React and Node.js.
-                  Focused on UX polish, resilient playback, and real-time delivery using
-                  chunked audio and WebRTC-based techniques.
+                  A javascript carousel library handles calculating 
+                  the position of the carousel items and the number 
+                  of items to display based on the container width.
                 </StyledCardText>
                 <StyledStack>
-                  React · Node.js · WebRTC
+                  Vanilla JavaScript · HTML · CSS
                 </StyledStack>
               </StyledCard>
             </StyledCardsContainer>
@@ -117,7 +146,7 @@ export default function Home() {
         </ScrollSection>
         </StyledMain>
       </ScrollSectionProvider>
-      <StyledFooter>
+      <StyledFooter $isVisible={showFooter}>
         <StyledFooterContent>
           <StyledFooterSocialLinks>
             <StyledFooterSocialLink 
