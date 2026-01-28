@@ -1,9 +1,14 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const StyledMain = styled.main`
   max-width: 1200px;
   margin: 0 auto;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color: #ffffff;
   line-height: 1.6;
   position: relative;
@@ -30,7 +35,12 @@ export const StyledName = styled.h1`
   color: #ffffff;
   letter-spacing: 0.05em;
   font-weight: 600;
-  font-family: var(--font-orbitron), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-orbitron),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
   @media (max-width: 768px) {
     font-size: 40px;
@@ -42,7 +52,12 @@ export const StyledTitle = styled.p`
   font-weight: 500;
   margin-bottom: 20px;
   color: #ffffff;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
   @media (max-width: 768px) {
     font-size: 18px;
@@ -53,7 +68,12 @@ export const StyledSubtitle = styled.p`
   max-width: 700px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   line-height: 1.7;
 
   @media (max-width: 768px) {
@@ -108,7 +128,12 @@ export const StyledEmailLink = styled.a`
   text-orientation: mixed;
   color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 13px;
   letter-spacing: 0.18em;
   z-index: 20;
@@ -134,7 +159,12 @@ export const StyledSection = styled.section`
 `;
 
 export const StyledHeading = styled.h2`
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color: #ffffff;
   font-size: 36px;
   font-weight: 600;
@@ -167,7 +197,9 @@ export const StyledCard = styled.div`
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 
   &:has(a:hover) {
     border-color: rgba(255, 255, 255, 0.4);
@@ -202,11 +234,13 @@ export const StyledCardWebsiteBadge = styled.span`
   }
 `;
 
-export const StyledCardLink = styled(StyledCard).attrs({ as: 'a' })`
+export const StyledCardLink = styled(StyledCard).attrs({ as: "a" })`
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.4);
@@ -235,7 +269,12 @@ export const StyledCardSourceLink = styled.a`
   gap: 6px;
   margin-top: 12px;
   padding: 10px 0;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
@@ -248,7 +287,12 @@ export const StyledCardSourceLink = styled.a`
 `;
 
 export const StyledCardTitle = styled.h3`
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   color: #ffffff;
   font-size: 18px;
   font-weight: 600;
@@ -261,7 +305,12 @@ export const StyledCardTitle = styled.h3`
 
 export const StyledCardText = styled.p`
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 14px;
   line-height: 1.7;
   margin-bottom: 16px;
@@ -273,7 +322,12 @@ export const StyledCardText = styled.p`
 
 export const StyledList = styled.ul`
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 14px;
   line-height: 1.7;
   margin-left: 24px;
@@ -288,12 +342,19 @@ export const StyledStack = styled.p`
   margin-top: 12px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.7);
-  font-family: var(--font-jetbrains-mono), 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-family:
+    var(--font-jetbrains-mono), "SF Mono", "Monaco", "Inconsolata",
+    "Roboto Mono", monospace;
 `;
 
 export const StyledText = styled.p`
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 14px;
   line-height: 1.7;
 
@@ -304,7 +365,12 @@ export const StyledText = styled.p`
 
 export const StyledTechLabel = styled.p`
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 14px;
   line-height: 1.7;
   margin-top: 24px;
@@ -331,7 +397,9 @@ export const StyledTechGrid = styled.ul`
   min-width: 0;
   flex: 0 1 auto;
   color: rgba(255, 255, 255, 0.9);
-  font-family: var(--font-jetbrains-mono), 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-family:
+    var(--font-jetbrains-mono), "SF Mono", "Monaco", "Inconsolata",
+    "Roboto Mono", monospace;
   font-size: 13px;
 `;
 
@@ -340,7 +408,7 @@ export const StyledTechItem = styled.li`
   padding-left: 20px;
 
   &::before {
-    content: '▹';
+    content: "▹";
     position: absolute;
     left: 0;
     color: rgb(255, 247, 98);
@@ -367,13 +435,23 @@ export const StyledNavContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
+
+  /* On desktop, nav spans full padding box so logo left aligns with social links (40px)
+     and nav links right aligns with email (40px). No max-width centering. */
+  @media (min-width: 769px) {
+    max-width: none;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 `;
 
 export const StyledNavLogo = styled.div`
-  font-family: 'Anurati', sans-serif;
+  font-family: "Anurati", sans-serif;
   font-size: 20px;
   color: #ffffff;
   letter-spacing: 0.05em;
@@ -409,22 +487,28 @@ export const StyledNavItem = styled.li`
 `;
 
 export const StyledNavLink = styled.a<{ $isActive: boolean }>`
-  color: ${props => props.$isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.6)'};
+  color: ${(props) =>
+    props.$isActive ? "#ffffff" : "rgba(255, 255, 255, 0.6)"};
   text-decoration: none;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 13px;
-  font-weight: ${props => props.$isActive ? '500' : '400'};
+  font-weight: ${(props) => (props.$isActive ? "500" : "400")};
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   position: relative;
   padding: 8px 0;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 0;
-    width: ${props => props.$isActive ? '100%' : '0'};
+    width: ${(props) => (props.$isActive ? "100%" : "0")};
     height: 2px;
     background-color: rgb(255, 247, 98);
     transition: width 0.3s ease;
@@ -432,7 +516,7 @@ export const StyledNavLink = styled.a<{ $isActive: boolean }>`
 
   &:hover {
     color: #ffffff;
-    
+
     &::after {
       width: 100%;
     }
@@ -464,7 +548,7 @@ export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
   display: none;
 
   @media (max-width: 768px) {
-    display: ${props => props.$isOpen ? 'block' : 'none'};
+    display: ${(props) => (props.$isOpen ? "block" : "none")};
     position: fixed;
     top: 60px;
     left: 0;
@@ -474,7 +558,7 @@ export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 24px 20px;
     z-index: 29;
-    animation: ${props => props.$isOpen ? 'slideDown' : 'none'} 0.3s ease;
+    animation: ${(props) => (props.$isOpen ? "slideDown" : "none")} 0.3s ease;
 
     ${StyledNavList} {
       display: flex !important;
@@ -506,14 +590,22 @@ export const StyledFooter = styled.footer<{ $isVisible?: boolean }>`
   padding-right: 200px;
   font-size: 14px;
   color: rgba(255, 255, 255, 0.6);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family:
+    var(--font-inter),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   text-align: center;
   z-index: 15;
   pointer-events: none;
-  opacity: ${props => props.$isVisible ? 1 : 0};
-  transform: ${props => props.$isVisible ? 'translateY(0)' : 'translateY(20px)'};
-  transition: opacity 0.5s ease, transform 0.5s ease;
-  visibility: ${props => props.$isVisible ? 'visible' : 'hidden'};
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  transform: ${(props) =>
+    props.$isVisible ? "translateY(0)" : "translateY(20px)"};
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
 
   @media (max-width: 768px) {
     padding: 20px;

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useEffect, useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import {
   StyledNav,
   StyledNavContent,
@@ -11,22 +11,28 @@ import {
   StyledNavLink,
   StyledHamburgerButton,
   StyledMobileMenu,
-} from './styled/PageStyles';
+} from "./styled/PageStyles";
 
 // Helper function to calculate scroll position for a section
-const calculateScrollPosition = (sectionId: string, element: HTMLElement): number => {
+const calculateScrollPosition = (
+  sectionId: string,
+  element: HTMLElement,
+): number => {
   const rect = element.getBoundingClientRect();
-  const isFeaturedProject = sectionId === 'featured-project';
-  const navElement = document.querySelector('nav');
+  const scrollToTop = sectionId === "featured-project" || sectionId === "about";
+  const navElement = document.querySelector("nav");
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
-  if (isFeaturedProject) {
+  if (scrollToTop) {
     // Scroll so the section heading (h2) lands below the nav — use heading position when available so
     // we're correct for all viewports (section top varies due to centering/padding)
     const BUFFER_PX = 24;
-    const heading = element.querySelector('h2');
+    const heading = element.querySelector("h2");
     const scrollPosition = heading
-      ? heading.getBoundingClientRect().top + window.scrollY - navHeight - BUFFER_PX
+      ? heading.getBoundingClientRect().top +
+        window.scrollY -
+        navHeight -
+        BUFFER_PX
       : rect.top + window.scrollY - navHeight - BUFFER_PX;
     return scrollPosition;
   }
@@ -35,12 +41,12 @@ const calculateScrollPosition = (sectionId: string, element: HTMLElement): numbe
 };
 
 export default function Navigation() {
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState("hero");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'featured-project', 'experience'];
+      const sections = ["hero", "about", "featured-project", "experience"];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const sectionId of sections) {
@@ -58,7 +64,7 @@ export default function Navigation() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initial check
 
     let resizeTimeout: NodeJS.Timeout;
@@ -82,12 +88,15 @@ export default function Navigation() {
 
         if (isMeaningfulResize) {
           // Real resize (orientation, window size): reset to hero
-          const heroElement = document.getElementById('hero');
+          const heroElement = document.getElementById("hero");
           if (heroElement) {
-            const targetScrollPosition = calculateScrollPosition('hero', heroElement);
+            const targetScrollPosition = calculateScrollPosition(
+              "hero",
+              heroElement,
+            );
             window.scrollTo({
               top: targetScrollPosition,
-              behavior: 'auto', // Instant scroll on resize
+              behavior: "auto", // Instant scroll on resize
             });
           }
         }
@@ -95,11 +104,11 @@ export default function Navigation() {
         handleScroll();
       }, 150); // Debounce resize events
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
       clearTimeout(resizeTimeout);
     };
   }, []);
@@ -107,13 +116,16 @@ export default function Navigation() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      window.dispatchEvent(new CustomEvent('navigation-start', { detail: { sectionId } }));
+      window.dispatchEvent(
+        new CustomEvent("navigation-start", { detail: { sectionId } }),
+      );
       const scrollPosition = calculateScrollPosition(sectionId, element);
-      // Use instant scroll for featured-project so we hit the target exactly (smooth scroll was falling short at some widths)
-      const useInstantScroll = sectionId === 'featured-project';
+      // Use instant scroll for scroll-to-top sections so we hit the target exactly (smooth scroll was falling short at some widths)
+      const useInstantScroll =
+        sectionId === "featured-project" || sectionId === "about";
       window.scrollTo({
         top: scrollPosition,
-        behavior: useInstantScroll ? 'auto' : 'smooth',
+        behavior: useInstantScroll ? "auto" : "smooth",
       });
       setIsMenuOpen(false); // Close menu after navigation
     }
@@ -126,9 +138,9 @@ export default function Navigation() {
           href="#hero"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('hero');
+            scrollToSection("hero");
           }}
-          $isActive={activeSection === 'hero'}
+          $isActive={activeSection === "hero"}
         >
           01. Home
         </StyledNavLink>
@@ -138,9 +150,9 @@ export default function Navigation() {
           href="#about"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('about');
+            scrollToSection("about");
           }}
-          $isActive={activeSection === 'about'}
+          $isActive={activeSection === "about"}
         >
           02. About
         </StyledNavLink>
@@ -150,9 +162,9 @@ export default function Navigation() {
           href="#featured-project"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('featured-project');
+            scrollToSection("featured-project");
           }}
-          $isActive={activeSection === 'featured-project'}
+          $isActive={activeSection === "featured-project"}
         >
           03. Featured Projects
         </StyledNavLink>
@@ -162,9 +174,9 @@ export default function Navigation() {
           href="#experience"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection('experience');
+            scrollToSection("experience");
           }}
-          $isActive={activeSection === 'experience'}
+          $isActive={activeSection === "experience"}
         >
           04. Experience
         </StyledNavLink>
@@ -176,21 +188,19 @@ export default function Navigation() {
     <StyledNav>
       <StyledNavContent>
         <StyledNavLogo
-          onClick={() => scrollToSection('hero')}
+          onClick={() => scrollToSection("hero")}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              scrollToSection('hero');
+              scrollToSection("hero");
             }
           }}
         >
           AEON
         </StyledNavLogo>
-        <StyledNavList>
-          {navLinks}
-        </StyledNavList>
+        <StyledNavList>{navLinks}</StyledNavList>
         <StyledHamburgerButton
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
@@ -199,9 +209,7 @@ export default function Navigation() {
         </StyledHamburgerButton>
       </StyledNavContent>
       <StyledMobileMenu $isOpen={isMenuOpen}>
-        <StyledNavList>
-          {navLinks}
-        </StyledNavList>
+        <StyledNavList>{navLinks}</StyledNavList>
       </StyledMobileMenu>
     </StyledNav>
   );
