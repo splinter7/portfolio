@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import ParticleBackground from './components/ParticleBackground';
 import Navigation from './components/Navigation';
 import ScrollSection, { ScrollSectionProvider } from './components/ScrollSection';
-import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaGlobe, FaLinkedin } from 'react-icons/fa';
 import {
   StyledMain,
   StyledHero,
@@ -18,11 +18,18 @@ import {
   StyledHeading,
   StyledCardsContainer,
   StyledCard,
+  StyledCardDemoLink,
+  StyledCardSourceLink,
+  StyledCardWebsiteBadge,
   StyledCardTitle,
   StyledCardText,
   StyledList,
   StyledStack,
   StyledText,
+  StyledTechLabel,
+  StyledTechGridWrapper,
+  StyledTechGrid,
+  StyledTechItem,
   StyledFooter,
   StyledFooterContent,
   StyledFooterSocialLinks,
@@ -98,7 +105,7 @@ export default function Home() {
               </StyledTitle>
               <StyledSubtitle>
                 I build fast, accessible, high-quality web experiences —
-                with a particular focus on audio, AI-driven products, and UX polish.
+                with a particular focus on audio, and UX polish.
               </StyledSubtitle>
             </StyledHero>
           </ScrollSection>
@@ -107,11 +114,26 @@ export default function Home() {
           <StyledSection>
             <StyledHeading>About</StyledHeading>
             <StyledText>
-              This is a placeholder About section where I’ll share a bit more
-              about my background, how I approach building products, and what
-              I’m currently focused on. For now, imagine a concise overview of
-              my experience, values, and the kind of work that excites me.
+            I am a senior frontend engineer with 10+ years 
+            of experience building user-focused web apps and 
+            marketing experiences. I specialize in React and 
+            TypeScript, with a strong focus on performance, 
+            and accessibility. I enjoy working closely with 
+            design, product, and growth teams to ship polished, 
+            scalable interfaces. I’m especially excited about 
+            AI-driven and audio-first products.
             </StyledText>
+            <StyledTechLabel>A few technologies I’m most comfortable with:</StyledTechLabel>
+            <StyledTechGridWrapper>
+              <StyledTechGrid>
+                <StyledTechItem>JavaScript (ES6+)</StyledTechItem>
+                <StyledTechItem>TypeScript</StyledTechItem>
+              </StyledTechGrid>
+              <StyledTechGrid>
+                <StyledTechItem>React</StyledTechItem>
+                <StyledTechItem>Node.js</StyledTechItem>
+              </StyledTechGrid>
+            </StyledTechGridWrapper>
           </StyledSection>
         </ScrollSection>
 
@@ -120,49 +142,116 @@ export default function Home() {
             <StyledHeading>Featured Project</StyledHeading>
             <StyledCardsContainer>
               <StyledCard>
-                <StyledCardTitle>Real-Time Audio Streaming Web App</StyledCardTitle>
-                <StyledCardText>
-                  A low-latency audio streaming application built with React and Node.js.
-                  Focused on resilient playback, and real-time delivery using
-                  chunked audio and WebRTC.
-                </StyledCardText>
-                <StyledStack>
-                  React · Node.js · WebRTC
-                </StyledStack>
+                <StyledCardDemoLink
+                  href="https://github.com/splinter7/audio-streaming"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Real-Time Audio Streaming Web App – view on GitHub"
+                >
+                  <StyledCardTitle>Real-Time Audio Streaming Web App</StyledCardTitle>
+                  <StyledCardText>
+                    A low-latency audio streaming application built with React and Node.js.
+                    Focused on resilient playback, and real-time delivery using
+                    chunked audio and WebRTC.
+                  </StyledCardText>
+                  <StyledStack>
+                    React · Node.js · WebRTC
+                  </StyledStack>
+                </StyledCardDemoLink>
+                <StyledCardSourceLink
+                  href="https://github.com/splinter7/audio-streaming"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Real-Time Audio Streaming Web App source code on GitHub"
+                >
+                  <FaGithub size={14} aria-hidden /> View source
+                </StyledCardSourceLink>
               </StyledCard>
 
               <StyledCard>
-                <StyledCardTitle>JCarousel</StyledCardTitle>
-                <StyledCardText>
-                  A javascript carousel library handles calculating 
-                  the position of the carousel items and the number 
-                  of items to display based on the container width.
-                </StyledCardText>
-                <StyledStack>
-                  Vanilla JavaScript · HTML · CSS
-                </StyledStack>
+                <StyledCardWebsiteBadge aria-hidden title="Live website">
+                  <FaGlobe size={14} />
+                </StyledCardWebsiteBadge>
+                <StyledCardDemoLink
+                  href="https://j-carousel.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="JCarousel – view live demo"
+                >
+                  <StyledCardTitle>JCarousel Javascript Carousel Library</StyledCardTitle>
+                  <StyledCardText>
+                    A javascript carousel library handles calculating 
+                    the position of the carousel items and the number 
+                    of items to display based on the container width.
+                  </StyledCardText>
+                  <StyledStack>
+                    JavaScript · HTML · CSS
+                  </StyledStack>
+                </StyledCardDemoLink>
+                <StyledCardSourceLink
+                  href="https://github.com/splinter7/JCarousel"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="JCarousel source code on GitHub"
+                >
+                  <FaGithub size={14} aria-hidden /> View source
+                </StyledCardSourceLink>
               </StyledCard>
 
               <StyledCard>
-                <StyledCardTitle>Project Title</StyledCardTitle>
-                <StyledCardText>
-                  A short description of the project, what problem it solves,
-                  and any notable technical or design decisions.
-                </StyledCardText>
-                <StyledStack>
-                  Tech · Stack · Here
-                </StyledStack>
+                <StyledCardWebsiteBadge aria-hidden title="Live website">
+                  <FaGlobe size={14} />
+                </StyledCardWebsiteBadge>
+                <StyledCardDemoLink
+                  href="https://react-wasps.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="React Wasps – view live demo"
+                >
+                  <StyledCardTitle>React Wasps</StyledCardTitle>
+                  <StyledCardText>
+                    A simple react app showcasing some animated flying wasps.
+                  </StyledCardText>
+                  <StyledStack>
+                    React · Vite · Gsap animation library
+                  </StyledStack>
+                </StyledCardDemoLink>
+                <StyledCardSourceLink
+                  href="https://github.com/splinter7/React-Wasps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="React Wasps source code on GitHub"
+                >
+                  <FaGithub size={14} aria-hidden /> View source
+                </StyledCardSourceLink>
               </StyledCard>
 
               <StyledCard>
-                <StyledCardTitle>Project Title</StyledCardTitle>
-                <StyledCardText>
-                  A short description of the project, what problem it solves,
-                  and any notable technical or design decisions.
-                </StyledCardText>
-                <StyledStack>
-                  Tech · Stack · Here
-                </StyledStack>
+                <StyledCardWebsiteBadge aria-hidden title="Live website">
+                  <FaGlobe size={14} />
+                </StyledCardWebsiteBadge>
+                <StyledCardDemoLink
+                  href="https://frontend-audio-processor.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Frontend Audio Processor – view live demo"
+                >
+                  <StyledCardTitle>Audio BPM Detector</StyledCardTitle>
+                  <StyledCardText>
+                    A beat detection app that analyzes audio files and outputs BPM.
+                  </StyledCardText>
+                  <StyledStack>
+                    JavaScript · Web Audio API · Vite
+                  </StyledStack>
+                </StyledCardDemoLink>
+                <StyledCardSourceLink
+                  href="https://github.com/splinter7/frontend-audio-processor"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Frontend Audio Processor source code on GitHub"
+                >
+                  <FaGithub size={14} aria-hidden /> View source
+                </StyledCardSourceLink>
               </StyledCard>
             </StyledCardsContainer>
           </StyledSection>
@@ -172,9 +261,11 @@ export default function Home() {
           <StyledSection>
             <StyledHeading>Experience Snapshot</StyledHeading>
             <StyledText>
-              10+ years building customer-facing web applications on large-scale product
-              teams. Deep experience with React, performance optimization, accessibility,
-              and close collaboration with design and product partners.
+            Technical lead overseeing a three-developer team, conducting 
+            hands-on security testing with OWASP ZAP to identify and 
+            remediate vulnerabilities, and using Lighthouse audits to 
+            drive measurable gains in performance, SEO, and accessibility 
+            across production web applications.
             </StyledText>
           </StyledSection>
         </ScrollSection>

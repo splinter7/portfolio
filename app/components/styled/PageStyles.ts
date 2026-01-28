@@ -159,6 +159,7 @@ export const StyledCardsContainer = styled.div`
 `;
 
 export const StyledCard = styled.div`
+  position: relative;
   padding: 32px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
@@ -166,9 +167,83 @@ export const StyledCard = styled.div`
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  &:has(a:hover) {
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(44, 45, 68, 0.45);
+  }
 
   @media (max-width: 768px) {
     padding: 24px;
+  }
+`;
+
+export const StyledCardWebsiteBadge = styled.span`
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+  pointer-events: none;
+
+  @media (max-width: 768px) {
+    top: 14px;
+    right: 14px;
+    width: 26px;
+    height: 26px;
+  }
+`;
+
+export const StyledCardLink = styled(StyledCard).attrs({ as: 'a' })`
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(44, 45, 68, 0.45);
+  }
+`;
+
+export const StyledCardDemoLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  &:hover {
+    outline: none;
+  }
+`;
+
+export const StyledCardSourceLink = styled.a`
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 10px 0;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    color: #ffffff;
   }
 `;
 
@@ -224,6 +299,51 @@ export const StyledText = styled.p`
 
   @media (max-width: 768px) {
     font-size: 14px;
+  }
+`;
+
+export const StyledTechLabel = styled.p`
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 24px;
+  margin-bottom: 12px;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
+
+export const StyledTechGridWrapper = styled.div`
+  display: flex;
+  gap: 32px;
+  flex-wrap: nowrap;
+`;
+
+export const StyledTechGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  flex: 0 1 auto;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-jetbrains-mono), 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 13px;
+`;
+
+export const StyledTechItem = styled.li`
+  position: relative;
+  padding-left: 20px;
+
+  &::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: rgb(255, 247, 98);
   }
 `;
 

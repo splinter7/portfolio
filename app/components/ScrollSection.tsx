@@ -26,6 +26,7 @@ const StyledScrollSection = styled.div<{ $isVisible: boolean; $sectionId?: strin
   position: relative;
   width: 100%;
   padding: 80px 120px 80px 120px;
+  pointer-events: ${props => props.$isVisible ? 'auto' : 'none'};
 
   @media (max-width: 768px) {
     padding: 64px 24px 64px 24px;
