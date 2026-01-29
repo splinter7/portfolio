@@ -19,7 +19,11 @@ const calculateScrollPosition = (
   element: HTMLElement,
 ): number => {
   const rect = element.getBoundingClientRect();
-  const scrollToTop = sectionId === "featured-project" || sectionId === "about";
+  const isDesktop = window.innerWidth > 768;
+  // On desktop, keep "about" centered like other sections;
+  // on smaller screens, scroll it to the top (below the nav).
+  const scrollToTop =
+    sectionId === "featured-project" || (sectionId === "about" && !isDesktop);
   const navElement = document.querySelector("nav");
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
@@ -120,9 +124,12 @@ export default function Navigation() {
         new CustomEvent("navigation-start", { detail: { sectionId } }),
       );
       const scrollPosition = calculateScrollPosition(sectionId, element);
-      // Use instant scroll for scroll-to-top sections so we hit the target exactly (smooth scroll was falling short at some widths)
+      // Use instant scroll only for sections that are using a scroll-to-top layout
+      // (featured-project on all viewports, about only on smaller screens to match calculateScrollPosition)
+      const isDesktop = window.innerWidth > 768;
       const useInstantScroll =
-        sectionId === "featured-project" || sectionId === "about";
+        sectionId === "featured-project" ||
+        (sectionId === "about" && !isDesktop);
       window.scrollTo({
         top: scrollPosition,
         behavior: useInstantScroll ? "auto" : "smooth",
@@ -198,7 +205,7 @@ export default function Navigation() {
             }
           }}
         >
-          (2S)
+          Stewart Small
         </StyledNavLogo>
         <StyledNavList>{navLinks}</StyledNavList>
         <StyledHamburgerButton

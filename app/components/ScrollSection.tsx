@@ -44,20 +44,28 @@ const StyledScrollSection = styled.div<{
   pointer-events: ${(props) => (props.$isVisible ? "auto" : "none")};
 
   ${(props) =>
-    props.$sectionId === "about" || props.$sectionId === "featured-project"
+    props.$sectionId === "about"
       ? `
-    justify-content: flex-start;
-    height: auto;
-    min-height: 100vh;
-    scroll-margin-top: 80px;
-  `
-      : ""}
+        justify-content: center;
+        height: auto;
+        min-height: 100vh;
+        scroll-margin-top: 80px;
+      `
+      : props.$sectionId === "featured-project"
+        ? `
+          justify-content: flex-start;
+          height: auto;
+          min-height: 100vh;
+          scroll-margin-top: 80px;
+        `
+        : ""}
 
   @media (max-width: 768px) {
     padding: 64px 24px 64px 24px;
     ${(props) =>
       props.$sectionId === "about" || props.$sectionId === "featured-project"
         ? `
+      justify-content: flex-start;
       padding-top: 80px;
     `
         : ""}

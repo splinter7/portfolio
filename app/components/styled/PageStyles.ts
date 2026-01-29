@@ -375,6 +375,7 @@ export const StyledTechLabel = styled.p`
   line-height: 1.7;
   margin-top: 24px;
   margin-bottom: 12px;
+  fint-weight: bold;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -382,9 +383,14 @@ export const StyledTechLabel = styled.p`
 `;
 
 export const StyledTechGridWrapper = styled.div`
-  display: flex;
-  gap: 32px;
-  flex-wrap: nowrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px 32px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const StyledTechGrid = styled.ul`
@@ -394,8 +400,6 @@ export const StyledTechGrid = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  min-width: 0;
-  flex: 0 1 auto;
   color: rgba(255, 255, 255, 0.9);
   font-family:
     var(--font-jetbrains-mono), "SF Mono", "Monaco", "Inconsolata",
@@ -722,4 +726,11 @@ export const StyledFooterCopyright = styled.div`
     margin-top: 0;
     font-size: 14px;
   }
+`;
+
+export const StyledSeparator = styled.span`
+  display: block;
+  border-bottom: 1px solid rgb(143, 142, 142);
+  width: 100%;
+  margin-top: 24px;
 `;

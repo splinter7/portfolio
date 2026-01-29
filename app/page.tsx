@@ -37,6 +37,7 @@ import {
   StyledFooterSocialLink,
   StyledFooterEmailLink,
   StyledFooterCopyright,
+  StyledSeparator,
 } from "./components/styled/PageStyles";
 
 export default function Home() {
@@ -145,8 +146,11 @@ export default function Home() {
                 interfaces. I’m especially excited about AI-driven and
                 audio-first products.
               </StyledText>
+
+              <StyledSeparator aria-hidden />
+
               <StyledTechLabel>
-                A few technologies I’m most comfortable with:
+                <strong>A few technologies I’m most comfortable with:</strong>
               </StyledTechLabel>
               <StyledTechGridWrapper>
                 <StyledTechGrid>
