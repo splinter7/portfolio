@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "shockSurgent";
+  src: url("/fonts/shock-surgent.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

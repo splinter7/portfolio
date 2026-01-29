@@ -198,7 +198,7 @@ export default function Navigation() {
             }
           }}
         >
-          AEON
+          (2S)
         </StyledNavLogo>
         <StyledNavList>{navLinks}</StyledNavList>
         <StyledHamburgerButton

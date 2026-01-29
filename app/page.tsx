@@ -25,7 +25,6 @@ import {
   StyledCardWebsiteBadge,
   StyledCardTitle,
   StyledCardText,
-  StyledList,
   StyledStack,
   StyledText,
   StyledTechLabel,
@@ -44,28 +43,52 @@ export default function Home() {
   const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
-    const checkScrollPosition = () => {
+    const computeVisibility = () => {
+      const heroSection = document.getElementById("hero");
       const experienceSection = document.getElementById("experience");
-      if (!experienceSection) return;
 
-      const rect = experienceSection.getBoundingClientRect();
-      const sectionBottom = rect.bottom;
-      const viewportHeight = window.innerHeight;
+      // Use the vertical center of the viewport as the trigger point,
+      // with a small buffer to reduce flicker when near boundaries.
+      const viewportMiddle = window.innerHeight / 2;
+      const buffer = 24; // pixels
 
-      // Show footer when the bottom of the experience section is at or past the bottom of the viewport
-      // with a small threshold to trigger slightly before fully scrolled
-      const threshold = 50; // pixels
-      setShowFooter(sectionBottom <= viewportHeight + threshold);
+      const isSectionInView = (el: HTMLElement | null) => {
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        // Section is considered active when the viewport's vertical center
+        // (with a small buffer) lies within the section bounds.
+        return (
+          rect.top - buffer <= viewportMiddle &&
+          rect.bottom + buffer >= viewportMiddle
+        );
+      };
+
+      const isHeroOrExperienceInView =
+        isSectionInView(heroSection) || isSectionInView(experienceSection);
+
+      // Footer is only visible when the viewport is over the hero or experience
+      // sections. Once visible in those sections, it stays visible while the
+      // user scrolls inside them, and hides only after scrolling outside.
+      setShowFooter(isHeroOrExperienceInView);
     };
 
-    // Check on mount and scroll
-    checkScrollPosition();
-    window.addEventListener("scroll", checkScrollPosition, { passive: true });
-    window.addEventListener("resize", checkScrollPosition, { passive: true });
+    const handleScroll = () => {
+      computeVisibility();
+    };
+
+    const handleResize = () => {
+      computeVisibility();
+    };
+
+    // Initial check on mount
+    computeVisibility();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", checkScrollPosition);
-      window.removeEventListener("resize", checkScrollPosition);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -128,13 +151,18 @@ export default function Home() {
               <StyledTechGridWrapper>
                 <StyledTechGrid>
                   <StyledTechItem>JavaScript (ES6+)</StyledTechItem>
-                  <StyledTechItem>HTML</StyledTechItem>
-                  <StyledTechItem>CSS</StyledTechItem>
+                  <StyledTechItem>HTML 5</StyledTechItem>
+                  <StyledTechItem>CSS 3</StyledTechItem>
                 </StyledTechGrid>
                 <StyledTechGrid>
                   <StyledTechItem>React</StyledTechItem>
-                  <StyledTechItem>TypeScript</StyledTechItem>
+                  <StyledTechItem>ExpressJs</StyledTechItem>
                   <StyledTechItem>Node.js</StyledTechItem>
+                </StyledTechGrid>
+                <StyledTechGrid>
+                  <StyledTechItem>NExtJs</StyledTechItem>
+                  <StyledTechItem>Vite</StyledTechItem>
+                  <StyledTechItem>Vercel</StyledTechItem>
                 </StyledTechGrid>
               </StyledTechGridWrapper>
             </StyledSection>
@@ -301,7 +329,7 @@ export default function Home() {
           </StyledFooterSocialLinks>
         </StyledFooterContent>
         <StyledFooterCopyright>
-          © {new Date().getFullYear()} Stewart Small
+          © {new Date().getFullYear()} AD - Stewart Small
         </StyledFooterCopyright>
       </StyledFooter>
     </>

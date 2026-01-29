@@ -34,7 +34,7 @@ export const StyledName = styled.h1`
   margin-bottom: 4px;
   color: #ffffff;
   letter-spacing: 0.05em;
-  font-weight: 600;
+  font-weight: normal;
   font-family:
     var(--font-orbitron),
     -apple-system,
@@ -451,15 +451,29 @@ export const StyledNavContent = styled.div`
 `;
 
 export const StyledNavLogo = styled.div`
-  font-family: "Anurati", sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "shockSurgent", sans-serif;
   font-size: 20px;
   color: #ffffff;
   letter-spacing: 0.05em;
   margin: 0;
   cursor: pointer;
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.6),
+    0 0 16px rgba(255, 255, 255, 0.3),
+    0 0 24px rgba(255, 247, 98, 0.2);
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease;
 
   &:hover {
     color: rgb(255, 247, 98);
+    text-shadow:
+      0 0 12px rgba(255, 247, 98, 0.8),
+      0 0 24px rgba(255, 247, 98, 0.5),
+      0 0 36px rgba(255, 247, 98, 0.3);
   }
 
   @media (max-width: 768px) {

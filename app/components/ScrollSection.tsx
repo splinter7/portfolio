@@ -86,40 +86,6 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const isMobile = window.innerWidth <= 768;
-      const heroElement = sectionsRef.current.get("hero");
-
-      // Constrain hero section scrolling on mobile - prevent scrolling UP past center
-      // Only apply constraint if hero is the active section and not during navigation
-      if (
-        isMobile &&
-        heroElement &&
-        activeSection === "hero" &&
-        !isNavigatingRef.current
-      ) {
-        const heroRect = heroElement.getBoundingClientRect();
-        const heroTop = heroRect.top + window.scrollY;
-        const heroCenter = heroTop + heroRect.height / 2;
-        const centerScrollY = heroCenter - window.innerHeight / 2;
-
-        // Only constrain when scrolling UP (scrollY < centerScrollY) and hero is still in view
-        // This allows scrolling DOWN to other sections but prevents scrolling UP past center
-        if (
-          heroRect.top < window.innerHeight &&
-          heroRect.bottom > 0 &&
-          window.scrollY < centerScrollY
-        ) {
-          // Use requestAnimationFrame to avoid scroll event conflicts
-          requestAnimationFrame(() => {
-            window.scrollTo({
-              top: centerScrollY,
-              behavior: "auto",
-            });
-          });
-          return; // Skip section detection on this scroll event
-        }
-      }
-
       // Reset navigation flag after scroll completes
       if (isNavigatingRef.current) {
         setTimeout(() => {
