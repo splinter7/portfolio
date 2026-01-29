@@ -44,37 +44,60 @@ export default function Home() {
   const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
-    const computeVisibility = () => {
+    const CLOSE_THRESHOLD_PX = 60;
+
+    const getNearestDistance = () => {
       const heroSection = document.getElementById("hero");
+      const aboutSection = document.getElementById("about");
       const experienceSection = document.getElementById("experience");
 
-      // Use the vertical center of the viewport as the trigger point,
-      // with a small buffer to reduce flicker when near boundaries.
+      // Use the vertical center of the viewport as the reference point.
       const viewportMiddle = window.innerHeight / 2;
-      const buffer = 24; // pixels
 
-      const isSectionInView = (el: HTMLElement | null) => {
-        if (!el) return false;
+      // Helper to measure how far a section's vertical center is from the
+      // viewport's vertical center. If a section is missing, treat it as
+      // infinitely far away.
+      const getDistanceToCenter = (el: HTMLElement | null) => {
+        if (!el) return Number.POSITIVE_INFINITY;
         const rect = el.getBoundingClientRect();
-        // Section is considered active when the viewport's vertical center
-        // (with a small buffer) lies within the section bounds.
-        return (
-          rect.top - buffer <= viewportMiddle &&
-          rect.bottom + buffer >= viewportMiddle
-        );
+        const sectionMiddle = rect.top + rect.height / 2;
+        return Math.abs(sectionMiddle - viewportMiddle);
       };
 
-      const isHeroOrExperienceInView =
-        isSectionInView(heroSection) || isSectionInView(experienceSection);
-
-      // Footer is only visible when the viewport is over the hero or experience
-      // sections. Once visible in those sections, it stays visible while the
-      // user scrolls inside them, and hides only after scrolling outside.
-      setShowFooter(isHeroOrExperienceInView);
+      return Math.min(
+        getDistanceToCenter(heroSection),
+        getDistanceToCenter(aboutSection),
+        getDistanceToCenter(experienceSection),
+      );
     };
 
+    const computeVisibility = () => {
+      // Only show the footer when one of the target sections' content is
+      // actually near the exact vertical center of the viewport.
+      const nearestDistance = getNearestDistance();
+
+      setShowFooter(nearestDistance <= CLOSE_THRESHOLD_PX);
+    };
+
+    let scrollTimeout: number | undefined;
+
     const handleScroll = () => {
-      computeVisibility();
+      if (scrollTimeout) {
+        window.clearTimeout(scrollTimeout);
+      }
+
+      // While scrolling, only hide the footer if we've actually moved past
+      // the "centered content" zone; if we're still near the vertical center,
+      // keep the footer visible.
+      const nearestDistance = getNearestDistance();
+      if (nearestDistance > CLOSE_THRESHOLD_PX) {
+        setShowFooter(false);
+      }
+
+      // Wait for ~500ms after scroll stops before recomputing visibility
+      scrollTimeout = window.setTimeout(() => {
+        computeVisibility();
+      }, 10);
     };
 
     const handleResize = () => {
@@ -88,6 +111,9 @@ export default function Home() {
     window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
+      if (scrollTimeout) {
+        window.clearTimeout(scrollTimeout);
+      }
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };

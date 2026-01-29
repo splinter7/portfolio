@@ -205,7 +205,7 @@ export default function Navigation() {
             }
           }}
         >
-          Stewart Small
+          SS
         </StyledNavLogo>
         <StyledNavList>{navLinks}</StyledNavList>
         <StyledHamburgerButton

@@ -458,7 +458,12 @@ export const StyledNavLogo = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "shockSurgent", sans-serif;
+  font-family:
+    var(--font-orbitron),
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-size: 20px;
   color: #ffffff;
   letter-spacing: 0.05em;
