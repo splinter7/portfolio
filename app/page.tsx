@@ -94,7 +94,7 @@ export default function Home() {
         setShowFooter(false);
       }
 
-      // Wait for ~500ms after scroll stops before recomputing visibility
+      // Wait for ~10ms after scroll stops before recomputing visibility
       scrollTimeout = window.setTimeout(() => {
         computeVisibility();
       }, 10);
