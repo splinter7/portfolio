@@ -152,7 +152,7 @@ export default function Home() {
           <ScrollSection sectionId="hero">
             <StyledHero>
               <StyledName>Stewart Small</StyledName>
-              <StyledTitle>Senior Frontend / Website Engineer</StyledTitle>
+              <StyledTitle>Senior Frontend / Website Engineer | Design Engineer</StyledTitle>
               <StyledSubtitle>
                 I build fast, accessible, high-quality web experiences — with a
                 particular focus on audio, and UX polish.
