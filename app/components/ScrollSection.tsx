@@ -102,16 +102,26 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
       }
 
       const viewportCenter = window.scrollY + window.innerHeight / 2;
+      let sectionContainingCenter: string | null = null;
       let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
         const sectionCenter = sectionTop + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
 
-        // Check if section is in viewport and closest to center
+        if (
+          sectionContainingCenter === null &&
+          viewportCenter >= sectionTop &&
+          viewportCenter <= sectionBottom
+        ) {
+          sectionContainingCenter = sectionId;
+        }
+
+        // Fallback for document edges where the viewport center is outside all sections.
         if (
           rect.top < window.innerHeight &&
           rect.bottom > 0 &&
@@ -121,6 +131,8 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
           closestSection = sectionId;
         }
       });
+
+      closestSection = sectionContainingCenter ?? closestSection;
 
       if (closestSection !== activeSection) {
         setActiveSection(closestSection);
