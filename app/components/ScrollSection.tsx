@@ -102,28 +102,40 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
       }
 
       const viewportCenter = window.scrollY + window.innerHeight / 2;
-      let closestSection: string | null = null;
+      let sectionAtViewportCenter: string | null = null;
+      let closestVisibleSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
         const sectionCenter = sectionTop + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
-        // Check if section is in viewport and closest to center
+        if (!isVisible) {
+          return;
+        }
+
         if (
-          rect.top < window.innerHeight &&
-          rect.bottom > 0 &&
-          distance < closestDistance
+          sectionAtViewportCenter === null &&
+          viewportCenter >= sectionTop &&
+          viewportCenter <= sectionBottom
         ) {
+          sectionAtViewportCenter = sectionId;
+        }
+
+        if (distance < closestDistance) {
           closestDistance = distance;
-          closestSection = sectionId;
+          closestVisibleSection = sectionId;
         }
       });
 
-      if (closestSection !== activeSection) {
-        setActiveSection(closestSection);
+      const nextActiveSection = sectionAtViewportCenter ?? closestVisibleSection;
+
+      if (nextActiveSection !== activeSection) {
+        setActiveSection(nextActiveSection);
       }
     };
 
@@ -142,7 +154,7 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
 
     // Listen for navigation events to disable constraint during navigation
-    const handleNavigationStart = ((e: CustomEvent) => {
+    const handleNavigationStart = (() => {
       isNavigatingRef.current = true;
     }) as EventListener;
     window.addEventListener("navigation-start", handleNavigationStart);
