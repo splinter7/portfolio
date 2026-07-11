@@ -154,7 +154,7 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
 
     // Listen for navigation events to disable constraint during navigation
-    const handleNavigationStart = ((e: CustomEvent) => {
+    const handleNavigationStart = (() => {
       isNavigatingRef.current = true;
     }) as EventListener;
     window.addEventListener("navigation-start", handleNavigationStart);
