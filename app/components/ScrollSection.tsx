@@ -101,29 +101,35 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
         }, 1000);
       }
 
-      const viewportCenter = window.scrollY + window.innerHeight / 2;
+      const viewportCenter = window.innerHeight / 2;
+      let centeredSection: string | null = null;
       let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
-        const sectionTop = rect.top + window.scrollY;
-        const sectionCenter = sectionTop + rect.height / 2;
+        const sectionCenter = rect.top + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
+        const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
-        // Check if section is in viewport and closest to center
         if (
-          rect.top < window.innerHeight &&
-          rect.bottom > 0 &&
-          distance < closestDistance
+          isVisible &&
+          rect.top <= viewportCenter &&
+          rect.bottom >= viewportCenter
         ) {
+          centeredSection = sectionId;
+        }
+
+        if (isVisible && distance < closestDistance) {
           closestDistance = distance;
           closestSection = sectionId;
         }
       });
 
-      if (closestSection !== activeSection) {
-        setActiveSection(closestSection);
+      const nextActiveSection = centeredSection ?? closestSection;
+
+      if (nextActiveSection !== activeSection) {
+        setActiveSection(nextActiveSection);
       }
     };
 
@@ -142,7 +148,7 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
 
     // Listen for navigation events to disable constraint during navigation
-    const handleNavigationStart = ((e: CustomEvent) => {
+    const handleNavigationStart = (() => {
       isNavigatingRef.current = true;
     }) as EventListener;
     window.addEventListener("navigation-start", handleNavigationStart);
