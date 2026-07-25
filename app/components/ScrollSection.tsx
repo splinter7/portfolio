@@ -102,14 +102,24 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
       }
 
       const viewportCenter = window.scrollY + window.innerHeight / 2;
+      // Prefer the section that contains the viewport center so tall
+      // height:auto sections (about, featured-project) stay interactive
+      // while scrolling through them. Fall back to nearest visible center
+      // near document edges where no section contains the midpoint.
+      let containingSection: string | null = null;
       let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
         const sectionCenter = sectionTop + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
+
+        if (viewportCenter >= sectionTop && viewportCenter <= sectionBottom) {
+          containingSection = sectionId;
+        }
 
         // Check if section is in viewport and closest to center
         if (
@@ -122,8 +132,10 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
         }
       });
 
-      if (closestSection !== activeSection) {
-        setActiveSection(closestSection);
+      const nextActiveSection = containingSection ?? closestSection;
+
+      if (nextActiveSection !== activeSection) {
+        setActiveSection(nextActiveSection);
       }
     };
 
@@ -142,7 +154,7 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
 
     // Listen for navigation events to disable constraint during navigation
-    const handleNavigationStart = ((e: CustomEvent) => {
+    const handleNavigationStart = (() => {
       isNavigatingRef.current = true;
     }) as EventListener;
     window.addEventListener("navigation-start", handleNavigationStart);
