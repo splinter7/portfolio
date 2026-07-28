@@ -102,28 +102,40 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
       }
 
       const viewportCenter = window.scrollY + window.innerHeight / 2;
+      let containingSection: string | null = null;
       let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
         const sectionCenter = sectionTop + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
 
-        // Check if section is in viewport and closest to center
+        // Prefer the section that actually contains the viewport center.
+        // Tall auto-height sections (e.g. featured-project) can still occupy
+        // the viewport while a shorter neighbor's center is closer, which would
+        // incorrectly hide and disable pointer events on the visible section.
         if (
-          rect.top < window.innerHeight &&
-          rect.bottom > 0 &&
-          distance < closestDistance
+          !containingSection &&
+          viewportCenter >= sectionTop &&
+          viewportCenter <= sectionBottom
         ) {
+          containingSection = sectionId;
+        }
+
+        if (isInViewport && distance < closestDistance) {
           closestDistance = distance;
           closestSection = sectionId;
         }
       });
 
-      if (closestSection !== activeSection) {
-        setActiveSection(closestSection);
+      const nextActiveSection = containingSection ?? closestSection;
+
+      if (nextActiveSection !== activeSection) {
+        setActiveSection(nextActiveSection);
       }
     };
 
@@ -142,7 +154,7 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
     window.addEventListener("scroll", throttledHandleScroll, { passive: true });
 
     // Listen for navigation events to disable constraint during navigation
-    const handleNavigationStart = ((e: CustomEvent) => {
+    const handleNavigationStart = (() => {
       isNavigatingRef.current = true;
     }) as EventListener;
     window.addEventListener("navigation-start", handleNavigationStart);
