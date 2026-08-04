@@ -102,28 +102,37 @@ export function ScrollSectionProvider({ children }: { children: ReactNode }) {
       }
 
       const viewportCenter = window.scrollY + window.innerHeight / 2;
+      let containingSection: string | null = null;
       let closestSection: string | null = null;
       let closestDistance = Infinity;
 
       sectionsRef.current.forEach((element, sectionId) => {
         const rect = element.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY;
+        const sectionBottom = sectionTop + rect.height;
         const sectionCenter = sectionTop + rect.height / 2;
         const distance = Math.abs(viewportCenter - sectionCenter);
+        const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
 
-        // Check if section is in viewport and closest to center
+        // Prefer the section that actually contains the viewport center so tall
+        // height:auto sections (e.g. featured-project) stay active while the
+        // user is still scrolling through them.
         if (
-          rect.top < window.innerHeight &&
-          rect.bottom > 0 &&
-          distance < closestDistance
+          viewportCenter >= sectionTop &&
+          viewportCenter <= sectionBottom
         ) {
+          containingSection = sectionId;
+        }
+
+        if (isInViewport && distance < closestDistance) {
           closestDistance = distance;
           closestSection = sectionId;
         }
       });
 
-      if (closestSection !== activeSection) {
-        setActiveSection(closestSection);
+      const nextActiveSection = containingSection ?? closestSection;
+      if (nextActiveSection !== activeSection) {
+        setActiveSection(nextActiveSection);
       }
     };
 
