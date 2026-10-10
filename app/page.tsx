@@ -38,6 +38,7 @@ import {
   StyledFooterEmailLink,
   StyledFooterCopyright,
   StyledSeparator,
+  StyledList,
 } from "./components/styled/PageStyles";
 
 export default function Home() {
@@ -152,7 +153,7 @@ export default function Home() {
           <ScrollSection sectionId="hero">
             <StyledHero>
               <StyledName>Stewart Small</StyledName>
-              <StyledTitle>Senior Frontend / Website Engineer | Design Engineer</StyledTitle>
+              <StyledTitle>Technical Lead | Full-Stack Engineer</StyledTitle>
               <StyledSubtitle>
                 I build fast, accessible, high-quality web experiences — with a
                 particular focus on audio, and UX polish.
@@ -164,12 +165,15 @@ export default function Home() {
             <StyledSection>
               <StyledHeading>About</StyledHeading>
               <StyledText>
-                I am a senior frontend engineer with 10+ years of experience
-                building user-focused web apps and marketing experiences. I
-                specialize in React and TypeScript, with a strong focus on
-                performance, and accessibility. I enjoy working closely with
-                design, product, and growth teams to ship polished, scalable
-                interfaces. I’m especially excited about AI-driven and
+                I am a full-stack engineer and technical lead with 13+ years
+                of experience building web applications — from early startup
+                sites to high-traffic marketplaces. Most recently at Angi, I
+                shipped a sponsored placement solution contributing €4M+ in
+                revenue, pairing feature development with experimentation
+                rigor. At HomeStars, I grew from Software Engineer to
+                Technical Lead over 7+ years, owning team delivery while
+                staying hands-on across APIs, performance, accessibility, and
+                security. I’m especially excited about AI-driven and
                 audio-first products.
               </StyledText>
 
@@ -181,16 +185,16 @@ export default function Home() {
               <StyledTechGridWrapper>
                 <StyledTechGrid>
                   <StyledTechItem>JavaScript (ES6+)</StyledTechItem>
-                  <StyledTechItem>HTML 5</StyledTechItem>
-                  <StyledTechItem>CSS 3</StyledTechItem>
+                  <StyledTechItem>HTML5</StyledTechItem>
+                  <StyledTechItem>CSS3</StyledTechItem>
                 </StyledTechGrid>
                 <StyledTechGrid>
                   <StyledTechItem>React</StyledTechItem>
-                  <StyledTechItem>ExpressJs</StyledTechItem>
+                  <StyledTechItem>Express.js</StyledTechItem>
                   <StyledTechItem>Node.js</StyledTechItem>
                 </StyledTechGrid>
                 <StyledTechGrid>
-                  <StyledTechItem>NExtJs</StyledTechItem>
+                  <StyledTechItem>Next.js</StyledTechItem>
                   <StyledTechItem>Vite</StyledTechItem>
                   <StyledTechItem>Vercel</StyledTechItem>
                 </StyledTechGrid>
@@ -200,7 +204,7 @@ export default function Home() {
 
           <ScrollSection sectionId="featured-project">
             <StyledSection>
-              <StyledHeading>Featured Project</StyledHeading>
+              <StyledHeading>Featured Projects</StyledHeading>
               <StyledCardsContainer>
                 <StyledCard>
                   <StyledCardDemoLink
@@ -240,10 +244,10 @@ export default function Home() {
                     aria-label="JCarousel – view live demo"
                   >
                     <StyledCardTitle>
-                      JCarousel Javascript Carousel Library
+                      JCarousel JavaScript Carousel Library
                     </StyledCardTitle>
                     <StyledCardText>
-                      A javascript carousel library handles calculating the
+                      A JavaScript carousel library that calculates the
                       position of the carousel items and the number of items to
                       display based on the container width.
                     </StyledCardText>
@@ -295,7 +299,7 @@ export default function Home() {
                     href="https://frontend-audio-processor.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Frontend Audio Processor – view live demo"
+                    aria-label="Audio BPM Detector – view live demo"
                   >
                     <StyledCardTitle>Audio BPM Detector</StyledCardTitle>
                     <StyledCardText>
@@ -308,7 +312,7 @@ export default function Home() {
                     href="https://github.com/splinter7/frontend-audio-processor"
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Frontend Audio Processor source code on GitHub"
+                    aria-label="Audio BPM Detector source code on GitHub"
                   >
                     <FaGithub size={14} aria-hidden /> View source
                   </StyledCardSourceLink>
@@ -319,14 +323,51 @@ export default function Home() {
 
           <ScrollSection sectionId="experience">
             <StyledSection>
-              <StyledHeading>Experience Snapshot</StyledHeading>
+              <StyledHeading>Experience</StyledHeading>
               <StyledText>
-                Technical lead overseeing a three-developer team, conducting
-                hands-on security testing with OWASP ZAP to identify and
-                remediate vulnerabilities, and using Lighthouse audits to drive
-                measurable gains in performance, SEO, and accessibility across
-                production web applications.
+                <strong>Software Engineer II — Angi</strong> · Oct
+                2025–Present · Toronto
               </StyledText>
+              <StyledList>
+                <li>
+                  Shipped a premium sponsored placement solution for Instapro,
+                  contributing €4M+ in revenue; designed LaunchDarkly
+                  experiments and built Redshift dashboards from Snowplow data
+                  to guide product decisions.
+                </li>
+              </StyledList>
+              <StyledText>
+                <strong>Technical Lead — HomeStars</strong> · Jun
+                2024–Oct 2025 · Toronto
+              </StyledText>
+              <StyledList>
+                <li>
+                  Owned team delivery — agile ceremonies, sprint outcomes,
+                  cross-team coordination — removing blockers and shipping
+                  predictably with high quality.
+                </li>
+              </StyledList>
+              <StyledText>
+                <strong>Full Stack Engineer (L3) — HomeStars</strong> ·
+                Apr 2023–Jun 2024 · Toronto
+              </StyledText>
+              <StyledList>
+                <li>
+                  Optimized REST endpoints for critical conversion flows,
+                  fixed security vulnerabilities, and ran A/B tests (Split)
+                  with Mixpanel tracking.
+                </li>
+              </StyledList>
+              <StyledText>
+                <strong>Software Engineer — HomeStars</strong> · Jul
+                2018–Apr 2023 · Toronto
+              </StyledText>
+              <StyledList>
+                <li>
+                  Built responsive, accessible, SEO-friendly UIs and supported
+                  the marketing team on WordPress sites.
+                </li>
+              </StyledList>
             </StyledSection>
           </ScrollSection>
         </StyledMain>
@@ -359,7 +400,7 @@ export default function Home() {
           </StyledFooterSocialLinks>
         </StyledFooterContent>
         <StyledFooterCopyright>
-          © {new Date().getFullYear()} AD - Stewart Small
+          © {new Date().getFullYear()} Stewart Small
         </StyledFooterCopyright>
       </StyledFooter>
     </>

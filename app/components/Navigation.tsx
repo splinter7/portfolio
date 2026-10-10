@@ -188,6 +188,16 @@ export default function Navigation() {
           04. Experience
         </StyledNavLink>
       </StyledNavItem>
+      <StyledNavItem>
+        <StyledNavLink
+          href="https://www.linkedin.com/in/stewart-small-a45a91b0"
+          target="_blank"
+          rel="noopener noreferrer"
+          $isActive={false}
+        >
+          05. Resume
+        </StyledNavLink>
+      </StyledNavItem>
     </>
   );
 

@@ -23,7 +23,7 @@ const orbitron = Orbitron({
 });
 
 export const metadata: Metadata = {
-  title: "Stewart Small - Senior Frontend / Website Engineer | Design Engineer",
+  title: "Stewart Small - Technical Lead | Full-Stack Engineer",
   description: "Portfolio of Stewart Small - Building fast, accessible, high-quality web experiences with a focus on audio, AI-driven products, and UX polish.",
 };
 
