@@ -7,6 +7,7 @@ import ScrollSection, {
   ScrollSectionProvider,
 } from "./components/ScrollSection";
 import Image from "next/image";
+import { AVATAR_DATA_URI } from "./components/avatarImage";
 import { FaEnvelope, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
 import {
   StyledMain,
@@ -84,7 +85,7 @@ export default function Home() {
               <Reveal>
                 <StyledAvatar>
                   <Image
-                    src="/avatar.png"
+                    src={AVATAR_DATA_URI}
                     alt="Illustrated portrait of Stewart Small"
                     width={240}
                     height={240}
