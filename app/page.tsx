@@ -3,6 +3,16 @@
 import { useEffect, useState } from "react";
 import Navigation from "./components/Navigation";
 import Reveal from "./components/Reveal";
+import {
+  AudioStreamingArt,
+  JCarouselArt,
+  WaspsArt,
+  BpmArt,
+  SquiggleDoodle,
+  AsteriskDoodle,
+  Grain,
+} from "./components/Covers";
+import { SHOT_JCAROUSEL, SHOT_WASPS, SHOT_BPM } from "./components/shots";
 import ScrollSection, {
   ScrollSectionProvider,
 } from "./components/ScrollSection";
@@ -75,6 +85,7 @@ export default function Home() {
   return (
     <>
       <Navigation />
+      <Grain />
       <ScrollSectionProvider>
         <StyledMain>
           <ScrollSection sectionId="hero">
@@ -168,6 +179,8 @@ export default function Home() {
             </StyledSection>
           </ScrollSection>
 
+          <SquiggleDoodle />
+
           <ScrollSection sectionId="featured-project">
             <StyledSection>
               <Reveal>
@@ -183,6 +196,11 @@ export default function Home() {
                       rel="noopener noreferrer"
                       aria-label="Real-Time Audio Streaming Web App – view on GitHub"
                     >
+                      <span className="cover-frame cover-static">
+                        <span className="cover-art">
+                          <AudioStreamingArt />
+                        </span>
+                      </span>
                       <StyledCardTitle>
                         Real-Time Audio Streaming Web App
                       </StyledCardTitle>
@@ -215,6 +233,16 @@ export default function Home() {
                       rel="noopener noreferrer"
                       aria-label="JCarousel – view live demo"
                     >
+                      <span className="cover-frame">
+                        <img
+                          className="cover-shot"
+                          src={SHOT_JCAROUSEL}
+                          alt=""
+                        />
+                        <span className="cover-art">
+                          <JCarouselArt />
+                        </span>
+                      </span>
                       <StyledCardTitle>
                         JCarousel JavaScript Carousel Library
                       </StyledCardTitle>
@@ -247,6 +275,12 @@ export default function Home() {
                       rel="noopener noreferrer"
                       aria-label="React Wasps – view live demo"
                     >
+                      <span className="cover-frame">
+                        <img className="cover-shot" src={SHOT_WASPS} alt="" />
+                        <span className="cover-art">
+                          <WaspsArt />
+                        </span>
+                      </span>
                       <StyledCardTitle>React Wasps</StyledCardTitle>
                       <StyledCardText>
                         A simple react app showcasing some animated flying
@@ -278,6 +312,12 @@ export default function Home() {
                       rel="noopener noreferrer"
                       aria-label="Audio BPM Detector – view live demo"
                     >
+                      <span className="cover-frame">
+                        <img className="cover-shot" src={SHOT_BPM} alt="" />
+                        <span className="cover-art">
+                          <BpmArt />
+                        </span>
+                      </span>
                       <StyledCardTitle>Audio BPM Detector</StyledCardTitle>
                       <StyledCardText>
                         A beat detection app that analyzes audio files and
@@ -300,6 +340,8 @@ export default function Home() {
               </StyledCardsContainer>
             </StyledSection>
           </ScrollSection>
+
+          <AsteriskDoodle />
 
           <ScrollSection sectionId="experience">
             <StyledSection>
