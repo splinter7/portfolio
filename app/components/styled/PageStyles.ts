@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 /*
  * Light, airy, minimal contemporary design tokens
@@ -35,13 +35,20 @@ export const StyledMain = styled.main`
 /* ----------------------------------- hero ---------------------------------- */
 
 export const StyledHero = styled.section`
+  position: relative;
   width: 100%;
   min-height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 120px 0 80px;
+  /* Slightly more bottom padding biases the content above vertical center,
+     so the first screen feels composed rather than bottom-heavy with void. */
+  padding: 104px 0 152px;
+
+  @media (max-width: 768px) {
+    padding: 96px 0 120px;
+  }
 `;
 
 export const StyledName = styled.h1`
@@ -106,15 +113,81 @@ export const StyledHeroLink = styled.a`
   }
 `;
 
+/* ------------------------------- scroll cue -------------------------------- */
+
+const scrollLineDraw = keyframes`
+  0% {
+    transform: translateY(-101%);
+  }
+  55% {
+    transform: translateY(101%);
+  }
+  100% {
+    transform: translateY(101%);
+  }
+`;
+
+export const StyledScrollCue = styled.a<{ $hidden: boolean }>`
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: ${fontMono};
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #6e6e76;
+  text-decoration: none;
+  opacity: ${(props) => (props.$hidden ? 0 : 1)};
+  visibility: ${(props) => (props.$hidden ? "hidden" : "visible")};
+  pointer-events: ${(props) => (props.$hidden ? "none" : "auto")};
+  transition:
+    opacity 0.45s ease,
+    visibility 0s linear ${(props) => (props.$hidden ? "0.45s" : "0s")},
+    color 0.2s ease;
+
+  &:hover {
+    color: #2b4eff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #2b4eff;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+`;
+
+export const StyledScrollLine = styled.span`
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: #e4e4de;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #2b4eff;
+    animation: ${scrollLineDraw} 2.2s ${easeOut} infinite;
+  }
+`;
+
 /* --------------------------------- sections -------------------------------- */
 
 export const StyledSection = styled.section`
   width: 100%;
-  padding: 88px 0;
+  padding: 72px 0 88px;
   scroll-margin-top: 72px;
 
   @media (max-width: 768px) {
-    padding: 64px 0;
+    padding: 56px 0 64px;
   }
 `;
 

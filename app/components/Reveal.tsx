@@ -62,7 +62,10 @@ export default function Reveal({
           }
         }
       },
-      { threshold: 0.1, rootMargin: "0px 0px -6% 0px" },
+      // Fire only once the element is genuinely entering the viewport
+      // (12% penetration + 15% visibility), so the fade-up plays visibly
+      // instead of completing while still below the fold.
+      { threshold: 0.15, rootMargin: "0px 0px -12% 0px" },
     );
 
     observer.observe(el);

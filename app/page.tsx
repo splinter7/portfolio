@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Navigation from "./components/Navigation";
 import Reveal from "./components/Reveal";
 import ScrollSection, {
@@ -14,6 +15,8 @@ import {
   StyledSubtitle,
   StyledHeroLinks,
   StyledHeroLink,
+  StyledScrollCue,
+  StyledScrollLine,
   StyledSection,
   StyledEyebrow,
   StyledHeading,
@@ -41,6 +44,32 @@ import {
   StyledFooterCopyright,
   StyledSeparator,
 } from "./components/styled/PageStyles";
+
+function ScrollCue() {
+  const [dismissed, setDismissed] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setDismissed(window.scrollY > 140);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <StyledScrollCue
+      href="#about"
+      aria-label="Scroll to about section"
+      aria-hidden={dismissed}
+      tabIndex={dismissed ? -1 : 0}
+      $hidden={dismissed}
+    >
+      <span>Scroll</span>
+      <StyledScrollLine aria-hidden="true" />
+    </StyledScrollCue>
+  );
+}
 
 export default function Home() {
   return (
@@ -88,6 +117,7 @@ export default function Home() {
                   </StyledHeroLink>
                 </StyledHeroLinks>
               </Reveal>
+              <ScrollCue />
             </StyledHero>
           </ScrollSection>
 
