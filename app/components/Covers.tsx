@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-
 /* ------------------------------------------------------------------ */
 /* 1. Audio Streaming — radiating broadcast arcs                        */
 /* ------------------------------------------------------------------ */
@@ -190,73 +188,6 @@ export function BpmArt() {
       <circle cx="287" cy="162" r="10" fill="#16161A" className="beat" />
       <circle cx="537" cy="162" r="10" fill="#16161A" className="beat beat-2" />
     </svg>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/* Doodles — hand-drawn dividers that draw themselves on scroll         */
-/* ------------------------------------------------------------------ */
-
-function useInView() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      setInView(true);
-      return;
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setInView(true);
-            obs.disconnect();
-          }
-        }
-      },
-      { threshold: 0.6 },
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return { ref, inView };
-}
-
-export function SquiggleDoodle() {
-  const { ref, inView } = useInView();
-  return (
-    <div ref={ref} className={`doodle doodle-squiggle${inView ? " doodle-in" : ""}`} aria-hidden="true">
-      <svg viewBox="0 0 200 44">
-        <path
-          d="M 10 24 Q 34 8, 58 24 T 106 24 T 154 24 T 194 24"
-          pathLength="100"
-        />
-      </svg>
-    </div>
-  );
-}
-
-export function AsteriskDoodle() {
-  const { ref, inView } = useInView();
-  const spokes = [0, 45, 90, 135, 180, 225, 270, 315].map((a) => {
-    const r = (a * Math.PI) / 180;
-    return (
-      <line
-        key={a}
-        x1="24"
-        y1="24"
-        x2={24 + 15 * Math.cos(r)}
-        y2={24 + 15 * Math.sin(r)}
-        pathLength="100"
-      />
-    );
-  });
-  return (
-    <div ref={ref} className={`doodle doodle-asterisk${inView ? " doodle-in" : ""}`} aria-hidden="true">
-      <svg viewBox="0 0 48 48">{spokes}</svg>
-    </div>
   );
 }
 

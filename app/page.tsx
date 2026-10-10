@@ -8,8 +8,6 @@ import {
   JCarouselArt,
   WaspsArt,
   BpmArt,
-  SquiggleDoodle,
-  AsteriskDoodle,
   Grain,
 } from "./components/Covers";
 import { SHOT_JCAROUSEL, SHOT_WASPS, SHOT_BPM } from "./components/shots";
@@ -179,8 +177,6 @@ export default function Home() {
             </StyledSection>
           </ScrollSection>
 
-          <SquiggleDoodle />
-
           <ScrollSection sectionId="featured-project">
             <StyledSection>
               <Reveal>
@@ -340,8 +336,6 @@ export default function Home() {
               </StyledCardsContainer>
             </StyledSection>
           </ScrollSection>
-
-          <AsteriskDoodle />
 
           <ScrollSection sectionId="experience">
             <StyledSection>

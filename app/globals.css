@@ -24,7 +24,7 @@ html {
 }
 
 /* ------------------------------------------------------------------ */
-/* Visual interest: film grain, doodle dividers, illustrated covers     */
+/* Visual interest: film grain + illustrated project covers             */
 /* ------------------------------------------------------------------ */
 
 /* Film grain overlay */
@@ -39,48 +39,6 @@ html {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-/* Hand-drawn doodle dividers */
-.doodle {
-  display: flex;
-  justify-content: center;
-  padding: 4px 0;
-}
-.doodle svg {
-  display: block;
-  overflow: visible;
-}
-.doodle-squiggle svg {
-  width: 132px;
-  height: auto;
-}
-.doodle-asterisk svg {
-  width: 30px;
-  height: auto;
-}
-.doodle path,
-.doodle line {
-  fill: none;
-  stroke: #6e6e76;
-  stroke-linecap: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-}
-.doodle-squiggle path {
-  stroke-width: 7;
-}
-.doodle-asterisk line {
-  stroke-width: 9;
-}
-.doodle-in path,
-.doodle-in line {
-  animation: doodle-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-@keyframes doodle-draw {
-  to {
-    stroke-dashoffset: 0;
-  }
 }
 
 /* Illustrated project covers */
