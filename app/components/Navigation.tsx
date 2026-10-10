@@ -20,10 +20,14 @@ const calculateScrollPosition = (
 ): number => {
   const rect = element.getBoundingClientRect();
   const isDesktop = window.innerWidth > 768;
-  // On desktop, keep "about" centered like other sections;
-  // on smaller screens, scroll it to the top (below the nav).
+  // "featured-project" and "experience" always scroll to the top (below the nav):
+  // centering math can target a position past the page's max scroll, and the
+  // browser clamps it — leaving the scrollspy highlighting the wrong section.
+  // "about" stays centered on desktop, top-aligned on smaller screens.
   const scrollToTop =
-    sectionId === "featured-project" || (sectionId === "about" && !isDesktop);
+    sectionId === "featured-project" ||
+    sectionId === "experience" ||
+    (sectionId === "about" && !isDesktop);
   const navElement = document.querySelector("nav");
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
@@ -52,6 +56,18 @@ export default function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 24);
+
+      // Bottom-of-page guard: when the page can't scroll any further, the last
+      // section is active. Without this, viewport-center math can keep the
+      // previous tall section highlighted after the browser clamps a scroll
+      // targeting the final section.
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4
+      ) {
+        setActiveSection("experience");
+        return;
+      }
 
       const sections = ["hero", "about", "featured-project", "experience"];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
@@ -102,10 +118,12 @@ export default function Navigation() {
       );
       const scrollPosition = calculateScrollPosition(sectionId, element);
       // Use instant scroll only for sections that are using a scroll-to-top layout
-      // (featured-project on all viewports, about only on smaller screens to match calculateScrollPosition)
+      // (featured-project and experience on all viewports, about only on smaller
+      // screens to match calculateScrollPosition)
       const isDesktop = window.innerWidth > 768;
       const useInstantScroll =
         sectionId === "featured-project" ||
+        sectionId === "experience" ||
         (sectionId === "about" && !isDesktop);
       window.scrollTo({
         top: scrollPosition,
