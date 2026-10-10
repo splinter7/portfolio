@@ -89,18 +89,21 @@ export default function Home() {
           <ScrollSection sectionId="hero">
             <StyledHero>
               <Reveal>
-                <StyledName>Stewart Small</StyledName>
+                <StyledEyebrow>Hello, I&apos;m</StyledEyebrow>
               </Reveal>
               <Reveal delay={90}>
-                <StyledTitle>Technical Lead | Full-Stack Engineer</StyledTitle>
+                <StyledName>Stewart Small</StyledName>
               </Reveal>
               <Reveal delay={180}>
+                <StyledTitle>Technical Lead | Full-Stack Engineer</StyledTitle>
+              </Reveal>
+              <Reveal delay={270}>
                 <StyledSubtitle>
                   I build fast, accessible, high-quality web experiences — with
                   a particular focus on audio, and UX polish.
                 </StyledSubtitle>
               </Reveal>
-              <Reveal delay={270}>
+              <Reveal delay={360}>
                 <StyledHeroLinks>
                   <StyledHeroLink
                     href="https://github.com/splinter7"

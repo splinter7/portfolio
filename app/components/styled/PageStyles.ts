@@ -54,7 +54,7 @@ export const StyledHero = styled.section`
 
 export const StyledName = styled.h1`
   font-family: ${fontSans};
-  font-size: clamp(2.6rem, 7vw, 4.25rem);
+  font-size: clamp(2.9rem, 9vw, 5.75rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 700;
