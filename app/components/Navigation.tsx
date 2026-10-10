@@ -75,39 +75,13 @@ export default function Navigation() {
     handleScroll(); // Initial check
 
     let resizeTimeout: NodeJS.Timeout;
-    let lastInnerWidth = window.innerWidth;
-    let lastInnerHeight = window.innerHeight;
-    // Threshold (px): height changes smaller than this are treated as browser chrome (e.g. address bar) and do not trigger scroll reset
-    const MOBILE_CHROME_RESIZE_THRESHOLD = 120;
 
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const widthChanged = width !== lastInnerWidth;
-        const heightDelta = Math.abs(height - lastInnerHeight);
-        const isMeaningfulResize =
-          widthChanged || heightDelta >= MOBILE_CHROME_RESIZE_THRESHOLD;
-
-        lastInnerWidth = width;
-        lastInnerHeight = height;
-
-        if (isMeaningfulResize) {
-          // Real resize (orientation, window size): reset to hero
-          const heroElement = document.getElementById("hero");
-          if (heroElement) {
-            const targetScrollPosition = calculateScrollPosition(
-              "hero",
-              heroElement,
-            );
-            window.scrollTo({
-              top: targetScrollPosition,
-              behavior: "auto", // Instant scroll on resize
-            });
-          }
-        }
-        // Always update active section (e.g. after address bar show/hide)
+        // Refresh the active-section highlight after resize.
+        // Never move the user's scroll position here — resize fires for
+        // scrollbar changes, zoom gestures, devtools, etc.
         handleScroll();
       }, 150); // Debounce resize events
     };
