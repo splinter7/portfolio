@@ -113,6 +113,32 @@ export const StyledHeroLink = styled.a`
   }
 `;
 
+
+export const StyledAvatar = styled.div`
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e9e9e4;
+  box-shadow: 0 10px 28px rgba(22, 22, 26, 0.1);
+  margin: 0 0 28px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (max-width: 768px) {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 24px;
+  }
+`;
+
 /* ------------------------------- scroll cue -------------------------------- */
 
 const scrollLineDraw = keyframes`
