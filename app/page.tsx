@@ -6,8 +6,6 @@ import Reveal from "./components/Reveal";
 import ScrollSection, {
   ScrollSectionProvider,
 } from "./components/ScrollSection";
-import Image from "next/image";
-import { AVATAR_DATA_URI } from "./components/avatarImage";
 import { FaEnvelope, FaGithub, FaGlobe, FaLinkedin } from "react-icons/fa";
 import {
   StyledMain,
@@ -17,7 +15,6 @@ import {
   StyledSubtitle,
   StyledHeroLinks,
   StyledHeroLink,
-  StyledAvatar,
   StyledScrollCue,
   StyledScrollLine,
   StyledSection,
@@ -83,29 +80,18 @@ export default function Home() {
           <ScrollSection sectionId="hero">
             <StyledHero>
               <Reveal>
-                <StyledAvatar>
-                  <Image
-                    src={AVATAR_DATA_URI}
-                    alt="Illustrated portrait of Stewart Small"
-                    width={240}
-                    height={240}
-                    priority
-                  />
-                </StyledAvatar>
-              </Reveal>
-              <Reveal delay={90}>
                 <StyledName>Stewart Small</StyledName>
               </Reveal>
-              <Reveal delay={180}>
+              <Reveal delay={90}>
                 <StyledTitle>Technical Lead | Full-Stack Engineer</StyledTitle>
               </Reveal>
-              <Reveal delay={270}>
+              <Reveal delay={180}>
                 <StyledSubtitle>
                   I build fast, accessible, high-quality web experiences — with
                   a particular focus on audio, and UX polish.
                 </StyledSubtitle>
               </Reveal>
-              <Reveal delay={360}>
+              <Reveal delay={270}>
                 <StyledHeroLinks>
                   <StyledHeroLink
                     href="https://github.com/splinter7"
