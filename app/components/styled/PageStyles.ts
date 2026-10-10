@@ -1,186 +1,150 @@
 import styled from "styled-components";
 
+/*
+ * Light, airy, minimal contemporary design tokens
+ * paper       #fafaf7  page background (warm paper)
+ * surface     #ffffff  cards / nav surfaces
+ * ink         #16161a  headings / primary text
+ * body        #3f3f46  paragraph text (~10:1 on paper — AAA)
+ * muted       #6e6e76  secondary text (4.8:1 on paper — AA)
+ * hairline    #e9e9e4  borders / dividers
+ * accent      #2b4eff  links / active states (5.5:1 on paper — AA)
+ * accent-soft rgba(43,78,255,0.07) hover washes
+ */
+
+const fontSans = `var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+const fontMono = `var(--font-jetbrains-mono), "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace`;
+const easeOut = `cubic-bezier(0.22, 1, 0.36, 1)`;
+
+/* ---------------------------------- layout --------------------------------- */
+
 export const StyledMain = styled.main`
-  max-width: 1200px;
+  max-width: 1080px;
   margin: 0 auto;
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  color: #ffffff;
-  line-height: 1.6;
-  position: relative;
-  z-index: 10;
+  padding: 0 32px;
   width: 100%;
+  font-family: ${fontSans};
+  color: #16161a;
+  line-height: 1.6;
 
   @media (max-width: 768px) {
-    max-width: 100%;
-    padding-bottom: 140px;
+    padding: 0 20px;
   }
 `;
+
+/* ----------------------------------- hero ---------------------------------- */
 
 export const StyledHero = styled.section`
   width: 100%;
+  min-height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  padding: 120px 0 80px;
 `;
 
 export const StyledName = styled.h1`
-  font-size: 60px;
-  margin-bottom: 4px;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  font-weight: normal;
-  font-family:
-    var(--font-orbitron),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  @media (max-width: 768px) {
-    font-size: 40px;
-  }
+  font-family: ${fontSans};
+  font-size: clamp(2.6rem, 7vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  color: #16161a;
+  margin: 0 0 12px;
 `;
 
 export const StyledTitle = styled.p`
-  font-size: 24px;
+  font-family: ${fontSans};
+  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
   font-weight: 500;
-  margin-bottom: 20px;
-  color: #ffffff;
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
-  @media (max-width: 768px) {
-    font-size: 18px;
-  }
+  letter-spacing: -0.01em;
+  color: #3f3f46;
+  margin: 0 0 20px;
 `;
 
 export const StyledSubtitle = styled.p`
-  max-width: 700px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  line-height: 1.7;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    max-width: 100%;
-  }
+  font-family: ${fontSans};
+  max-width: 620px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #3f3f46;
+  margin: 0 0 36px;
 `;
 
-export const StyledSocialLinks = styled.div`
-  position: fixed;
-  left: 40px;
-  top: 50%;
-  transform: translateY(-50%);
+export const StyledHeroLinks = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  z-index: 20;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
+  flex-wrap: wrap;
+  gap: 12px;
 `;
 
-export const StyledSocialLink = styled.a`
-  color: #ffffff;
+export const StyledHeroLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 12px 20px;
+  font-family: ${fontSans};
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #16161a;
+  background: #ffffff;
+  border: 1px solid #e9e9e4;
+  border-radius: 999px;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  pointer-events: auto;
+  transition:
+    transform 0.35s ${easeOut},
+    box-shadow 0.35s ${easeOut},
+    border-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
-    color: rgb(255, 247, 98);
-    border-color: rgba(255, 247, 98, 0.5);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(22, 22, 26, 0.08);
+    border-color: #d8d8d2;
+    color: #2b4eff;
   }
 `;
 
-export const StyledEmailLink = styled.a`
-  position: fixed;
-  right: 40px;
-  top: 50%;
-  transform: translateY(-50%);
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  z-index: 20;
-  transition: all 0.3s ease;
-  pointer-events: auto;
-
-  &:hover {
-    color: rgb(255, 247, 98);
-    transform: translateY(calc(-50% - 3px));
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
+/* --------------------------------- sections -------------------------------- */
 
 export const StyledSection = styled.section`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-`;
-
-export const StyledHeading = styled.h2`
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  color: #ffffff;
-  font-size: 36px;
-  font-weight: 600;
-  margin-bottom: 24px;
+  padding: 88px 0;
+  scroll-margin-top: 72px;
 
   @media (max-width: 768px) {
-    font-size: 28px;
+    padding: 64px 0;
   }
 `;
 
+export const StyledEyebrow = styled.p`
+  font-family: ${fontMono};
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #2b4eff;
+  margin: 0 0 12px;
+`;
+
+export const StyledHeading = styled.h2`
+  font-family: ${fontSans};
+  font-size: clamp(1.65rem, 4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #16161a;
+  margin: 0 0 20px;
+`;
+
+/* ---------------------------------- cards ---------------------------------- */
+
 export const StyledCardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
   width: 100%;
-  margin-top: 24px;
+  margin-top: 32px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -188,22 +152,24 @@ export const StyledCardsContainer = styled.div`
   }
 `;
 
-export const StyledCard = styled.div`
+export const StyledCard = styled.article`
   position: relative;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 100%;
+  padding: 28px;
+  border: 1px solid #e9e9e4;
   border-radius: 12px;
-  background-color: rgba(44, 45, 68, 0.3);
-  backdrop-filter: blur(10px);
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease;
+    transform 0.4s ${easeOut},
+    box-shadow 0.4s ${easeOut},
+    border-color 0.25s ease;
 
-  &:has(a:hover) {
-    border-color: rgba(255, 255, 255, 0.4);
-    background-color: rgba(44, 45, 68, 0.45);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(22, 22, 26, 0.08);
+    border-color: #dcdcd6;
   }
 
   @media (max-width: 768px) {
@@ -213,39 +179,18 @@ export const StyledCard = styled.div`
 
 export const StyledCardWebsiteBadge = styled.span`
   position: absolute;
-  top: 16px;
-  right: 16px;
+  top: 20px;
+  right: 20px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background-color: rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.85);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(43, 78, 255, 0.08);
+  color: #2b4eff;
   flex-shrink: 0;
   pointer-events: none;
-
-  @media (max-width: 768px) {
-    top: 14px;
-    right: 14px;
-    width: 26px;
-    height: 26px;
-  }
-`;
-
-export const StyledCardLink = styled(StyledCard).attrs({ as: "a" })`
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease;
-
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.4);
-    background-color: rgba(44, 45, 68, 0.45);
-  }
 `;
 
 export const StyledCardDemoLink = styled.a`
@@ -254,6 +199,7 @@ export const StyledCardDemoLink = styled.a`
   display: flex;
   flex-direction: column;
   min-width: 0;
+  flex: 1;
 
   &:hover {
     outline: none;
@@ -261,177 +207,164 @@ export const StyledCardDemoLink = styled.a`
 `;
 
 export const StyledCardSourceLink = styled.a`
-  position: relative;
-  z-index: 1;
   align-self: flex-start;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 10px 0;
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.75);
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 0;
+  min-height: 44px;
+  font-family: ${fontSans};
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6e6e76;
   text-decoration: none;
   transition: color 0.2s ease;
-  cursor: pointer;
 
   &:hover {
-    color: #ffffff;
+    color: #2b4eff;
   }
 `;
 
 export const StyledCardTitle = styled.h3`
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
+  font-family: ${fontSans};
+  font-size: 1.1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: #16161a;
+  margin: 0 0 10px;
+  padding-right: 40px;
 `;
 
 export const StyledCardText = styled.p`
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-
-export const StyledList = styled.ul`
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-left: 24px;
-  margin-bottom: 16px;
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-  }
+  font-family: ${fontSans};
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #3f3f46;
+  margin: 0 0 14px;
 `;
 
 export const StyledStack = styled.p`
-  margin-top: 12px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  font-family:
-    var(--font-jetbrains-mono), "SF Mono", "Monaco", "Inconsolata",
-    "Roboto Mono", monospace;
+  margin: 4px 0 0;
+  font-family: ${fontMono};
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: #6e6e76;
 `;
+
+/* ------------------------------- text & lists ------------------------------ */
 
 export const StyledText = styled.p`
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
+  font-family: ${fontSans};
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #3f3f46;
+  margin: 0 0 8px;
+  max-width: 720px;
+`;
 
-  @media (max-width: 768px) {
-    font-size: 14px;
+export const StyledList = styled.ul`
+  font-family: ${fontSans};
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #3f3f46;
+  margin: 4px 0 8px;
+  padding-left: 20px;
+  max-width: 720px;
+
+  li {
+    margin-bottom: 6px;
+  }
+
+  li::marker {
+    color: #2b4eff;
   }
 `;
 
-export const StyledTechLabel = styled.p`
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 14px;
-  line-height: 1.7;
-  margin-top: 24px;
-  margin-bottom: 12px;
-  fint-weight: bold;
+export const StyledJob = styled.div`
+  margin-bottom: 32px;
 
-  @media (max-width: 768px) {
-    font-size: 14px;
+  &:last-child {
+    margin-bottom: 0;
   }
+`;
+
+export const StyledJobHeader = styled.p`
+  font-family: ${fontSans};
+  font-size: 1rem;
+  font-weight: 600;
+  color: #16161a;
+  margin: 0 0 6px;
+
+  span {
+    font-weight: 400;
+    color: #6e6e76;
+  }
+`;
+
+/* -------------------------------- tech pills ------------------------------- */
+
+export const StyledTechLabel = styled.p`
+  font-family: ${fontSans};
+  font-size: 0.95rem;
+  color: #3f3f46;
+  margin: 32px 0 16px;
 `;
 
 export const StyledTechGridWrapper = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 `;
 
 export const StyledTechGrid = styled.ul`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px 0;
+  display: contents;
   list-style: none;
   margin: 0;
   padding: 0;
-  color: rgba(255, 255, 255, 0.9);
-  font-family:
-    var(--font-jetbrains-mono), "SF Mono", "Monaco", "Inconsolata",
-    "Roboto Mono", monospace;
-  font-size: 13px;
 `;
 
 export const StyledTechItem = styled.li`
-  position: relative;
-  padding-left: 20px;
+  font-family: ${fontSans};
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #3f3f46;
+  background: #ffffff;
+  border: 1px solid #e9e9e4;
+  border-radius: 999px;
+  padding: 9px 18px;
+  transition:
+    border-color 0.2s ease,
+    transform 0.3s ${easeOut};
 
-  &::before {
-    content: "▹";
-    position: absolute;
-    left: 0;
-    color: rgb(255, 247, 98);
+  &:hover {
+    border-color: #2b4eff;
+    transform: translateY(-2px);
   }
 `;
 
-export const StyledNav = styled.nav`
+/* ----------------------------------- nav ----------------------------------- */
+
+export const StyledNav = styled.nav<{ $scrolled: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 30;
-  padding: 20px 40px;
-  background-color: rgba(44, 45, 68, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 32px;
+  background: ${(props) =>
+    props.$scrolled ? "rgba(250, 250, 247, 0.85)" : "transparent"};
+  backdrop-filter: ${(props) => (props.$scrolled ? "blur(12px)" : "none")};
+  -webkit-backdrop-filter: ${(props) =>
+    props.$scrolled ? "blur(12px)" : "none"};
+  border-bottom: 1px solid
+    ${(props) => (props.$scrolled ? "#e9e9e4" : "transparent")};
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
 
   @media (max-width: 768px) {
-    padding: 16px 20px;
+    padding: 12px 20px;
   }
 `;
 
@@ -439,62 +372,39 @@ export const StyledNavContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
   width: 100%;
-
-  /* On desktop, nav spans full padding box so logo left aligns with social links (40px)
-     and nav links right aligns with email (40px). No max-width centering. */
-  @media (min-width: 769px) {
-    max-width: none;
-    margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
 `;
 
 export const StyledNavLogo = styled.div`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family:
-    var(--font-orbitron),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 20px;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  margin: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #16161a;
+  color: #fafaf7;
+  font-family: ${fontSans};
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   cursor: pointer;
-  text-shadow:
-    0 0 8px rgba(255, 255, 255, 0.6),
-    0 0 16px rgba(255, 255, 255, 0.3),
-    0 0 24px rgba(255, 247, 98, 0.2);
   transition:
-    color 0.2s ease,
-    text-shadow 0.2s ease;
+    background 0.25s ease,
+    transform 0.3s ${easeOut};
 
   &:hover {
-    color: rgb(255, 247, 98);
-    text-shadow:
-      0 0 12px rgba(255, 247, 98, 0.8),
-      0 0 24px rgba(255, 247, 98, 0.5),
-      0 0 36px rgba(255, 247, 98, 0.3);
-  }
-
-  @media (max-width: 768px) {
-    font-size: 24px;
+    background: #2b4eff;
+    transform: translateY(-1px);
   }
 `;
 
 export const StyledNavList = styled.ul`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  gap: 40px;
+  gap: 32px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -510,44 +420,34 @@ export const StyledNavItem = styled.li`
 `;
 
 export const StyledNavLink = styled.a<{ $isActive: boolean }>`
-  color: ${(props) =>
-    props.$isActive ? "#ffffff" : "rgba(255, 255, 255, 0.6)"};
-  text-decoration: none;
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-  font-size: 13px;
-  font-weight: ${(props) => (props.$isActive ? "500" : "400")};
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
   position: relative;
-  padding: 8px 0;
+  font-family: ${fontSans};
+  font-size: 0.85rem;
+  font-weight: ${(props) => (props.$isActive ? "600" : "400")};
+  letter-spacing: 0.04em;
+  color: ${(props) => (props.$isActive ? "#16161a" : "#6e6e76")};
+  text-decoration: none;
+  padding: 10px 0;
+  transition: color 0.2s ease;
 
   &::after {
     content: "";
     position: absolute;
-    bottom: 0;
     left: 0;
-    width: ${(props) => (props.$isActive ? "100%" : "0")};
+    bottom: 4px;
     height: 2px;
-    background-color: rgb(255, 247, 98);
-    transition: width 0.3s ease;
+    width: ${(props) => (props.$isActive ? "100%" : "0")};
+    background: #2b4eff;
+    border-radius: 2px;
+    transition: width 0.3s ${easeOut};
   }
 
   &:hover {
-    color: #ffffff;
+    color: #16161a;
 
     &::after {
       width: 100%;
     }
-  }
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    padding: 16px 0;
   }
 `;
 
@@ -555,15 +455,17 @@ export const StyledHamburgerButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: #ffffff;
+  color: #16161a;
   cursor: pointer;
-  padding: 8px;
-  z-index: 31;
+  padding: 12px;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
 
   @media (max-width: 768px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-flex;
   }
 `;
 
@@ -573,72 +475,41 @@ export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
   @media (max-width: 768px) {
     display: ${(props) => (props.$isOpen ? "block" : "none")};
     position: fixed;
-    top: 60px;
+    top: 62px;
     left: 0;
     right: 0;
-    background-color: rgba(44, 45, 68, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 24px 20px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e9e9e4;
+    padding: 12px 20px 20px;
     z-index: 29;
-    animation: ${(props) => (props.$isOpen ? "slideDown" : "none")} 0.3s ease;
 
     ${StyledNavList} {
       display: flex !important;
       flex-direction: column;
-      gap: 24px;
       align-items: flex-start;
+      gap: 4px;
     }
-  }
 
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    ${StyledNavLink} {
+      display: block;
+      font-size: 1rem;
+      padding: 12px 0;
     }
   }
 `;
 
-export const StyledFooter = styled.footer<{ $isVisible?: boolean }>`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 24px;
-  padding-left: 120px;
-  padding-right: 200px;
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.6);
-  font-family:
-    var(--font-inter),
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+/* ---------------------------------- footer --------------------------------- */
+
+export const StyledFooter = styled.footer`
+  border-top: 1px solid #e9e9e4;
+  padding: 48px 32px;
+  font-family: ${fontSans};
   text-align: center;
-  z-index: 15;
-  pointer-events: none;
-  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
-  transform: ${(props) =>
-    props.$isVisible ? "translateY(0)" : "translateY(20px)"};
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-  visibility: ${(props) => (props.$isVisible ? "visible" : "hidden")};
 
   @media (max-width: 768px) {
-    padding: 20px;
-    pointer-events: auto;
-    background-color: rgba(44, 45, 68, 0.3);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
+    padding: 40px 20px;
   }
 `;
 
@@ -646,96 +517,78 @@ export const StyledFooterContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 5px;
-
-  @media (min-width: 769px) {
-    display: none;
-  }
+  gap: 20px;
+  max-width: 1080px;
+  margin: 0 auto;
 `;
 
 export const StyledFooterSocialLinks = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
   justify-content: center;
-  pointer-events: auto;
 `;
 
 export const StyledFooterSocialLink = styled.a`
-  color: #ffffff;
-  text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  pointer-events: auto;
+  border: 1px solid #e9e9e4;
+  background: #ffffff;
+  color: #3f3f46;
+  text-decoration: none;
+  transition:
+    transform 0.3s ${easeOut},
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.3s ${easeOut};
 
   &:hover {
-    color: rgb(255, 247, 98);
-    border-color: rgba(255, 247, 98, 0.5);
-    transform: translateY(-3px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 36px;
+    color: #2b4eff;
+    border-color: #2b4eff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(22, 22, 26, 0.08);
   }
 `;
 
 export const StyledFooterEmailLink = styled.a`
-  color: #ffffff;
-  text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  transition: all 0.3s ease;
-  background-color: rgba(255, 255, 255, 0.05);
-  pointer-events: auto;
+  border: 1px solid #e9e9e4;
+  background: #ffffff;
+  color: #3f3f46;
+  text-decoration: none;
+  transition:
+    transform 0.3s ${easeOut},
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.3s ${easeOut};
 
   &:hover {
-    color: rgb(255, 247, 98);
-    border-color: rgba(255, 247, 98, 0.5);
-    transform: translateY(-3px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    width: 36px;
-    height: 36px;
+    color: #2b4eff;
+    border-color: #2b4eff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(22, 22, 26, 0.08);
   }
 `;
 
-export const StyledFooterCopyright = styled.div`
-  pointer-events: none;
-  font-size: 12px;
-
-  @media (min-width: 769px) {
-    margin-top: 0;
-    font-size: 14px;
-  }
+export const StyledFooterCopyright = styled.p`
+  margin: 0;
+  font-family: ${fontSans};
+  font-size: 0.8rem;
+  color: #6e6e76;
 `;
 
-export const StyledSeparator = styled.span`
-  display: block;
-  border-bottom: 1px solid rgb(143, 142, 142);
+export const StyledSeparator = styled.hr`
+  border: none;
+  border-top: 1px solid #e9e9e4;
+  margin: 40px 0 0;
   width: 100%;
-  margin-top: 24px;
 `;

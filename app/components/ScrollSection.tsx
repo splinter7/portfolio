@@ -22,54 +22,12 @@ const ScrollSectionContext = createContext<ScrollSectionContextType | null>(
   null,
 );
 
-const StyledScrollSection = styled.div<{
-  $isVisible: boolean;
-  $sectionId?: string;
-}>`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
-  transform: ${(props) =>
-    props.$isVisible ? "translateY(0)" : "translateY(20px)"};
-  transition:
-    opacity 0.5s ease,
-    transform 0.5s ease;
-  will-change: opacity, transform;
-  position: relative;
+// Plain semantic section wrapper. Scroll-reveal animation is handled by the
+// Reveal component; this wrapper only provides the anchor id and registers
+// the section for scroll tracking.
+const StyledScrollSection = styled.section`
   width: 100%;
-  padding: 80px 120px 80px 120px;
-  pointer-events: ${(props) => (props.$isVisible ? "auto" : "none")};
-
-  ${(props) =>
-    props.$sectionId === "about"
-      ? `
-        justify-content: center;
-        height: auto;
-        min-height: 100vh;
-        scroll-margin-top: 80px;
-      `
-      : props.$sectionId === "featured-project"
-        ? `
-          justify-content: flex-start;
-          height: auto;
-          min-height: 100vh;
-          scroll-margin-top: 80px;
-        `
-        : ""}
-
-  @media (max-width: 768px) {
-    padding: 64px 24px 64px 24px;
-    ${(props) =>
-      props.$sectionId === "about" || props.$sectionId === "featured-project"
-        ? `
-      justify-content: flex-start;
-      padding-top: 80px;
-    `
-        : ""}
-  }
+  scroll-margin-top: 76px;
 `;
 
 interface ScrollSectionProps {
@@ -175,7 +133,7 @@ export default function ScrollSection({
   onVisibilityChange,
 }: ScrollSectionProps) {
   const context = useContext(ScrollSectionContext);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isVisible =
     context?.activeSection === sectionId ||
     (sectionId === "hero" && !context?.activeSection);
@@ -196,12 +154,7 @@ export default function ScrollSection({
   }, [isVisible, onVisibilityChange]);
 
   return (
-    <StyledScrollSection
-      ref={sectionRef}
-      $isVisible={isVisible}
-      $sectionId={sectionId}
-      id={sectionId}
-    >
+    <StyledScrollSection ref={sectionRef} id={sectionId}>
       {children}
     </StyledScrollSection>
   );

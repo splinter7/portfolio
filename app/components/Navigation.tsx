@@ -47,9 +47,12 @@ const calculateScrollPosition = (
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
+      setScrolled(window.scrollY > 24);
+
       const sections = ["hero", "about", "featured-project", "experience"];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
@@ -202,12 +205,13 @@ export default function Navigation() {
   );
 
   return (
-    <StyledNav>
+    <StyledNav $scrolled={scrolled}>
       <StyledNavContent>
         <StyledNavLogo
           onClick={() => scrollToSection("hero")}
           role="button"
           tabIndex={0}
+          aria-label="Back to top"
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
@@ -221,6 +225,7 @@ export default function Navigation() {
         <StyledHamburgerButton
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
         </StyledHamburgerButton>
