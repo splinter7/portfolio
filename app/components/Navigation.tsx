@@ -211,7 +211,7 @@ export default function Navigation() {
             }
           }}
         >
-          SS
+          S.
         </StyledNavLogo>
         <StyledNavList>{navLinks}</StyledNavList>
         <StyledHamburgerButton
