@@ -10,6 +10,19 @@ const TOP_ALIGNED_SECTIONS = new Set([
   "about",
 ]);
 
+// Document-relative top of an element, ignoring CSS transforms (e.g. the
+// scroll-reveal's translateY): getBoundingClientRect includes transforms,
+// which would skew the first navigation to a not-yet-revealed section.
+const layoutTop = (el: HTMLElement): number => {
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node) {
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  return top;
+};
+
 // Helper function to calculate scroll position for a section
 const calculateScrollPosition = (
   sectionId: string,
@@ -24,14 +37,12 @@ const calculateScrollPosition = (
     // title) lands below the nav — it counts as the top of the section, so
     // the nav must not cover it. Falls back to the h2, then the section top.
     const BUFFER_PX = 24;
-    const heading =
-      element.querySelector("[data-eyebrow]") || element.querySelector("h2");
-    const scrollPosition = heading
-      ? heading.getBoundingClientRect().top +
-        window.scrollY -
-        navHeight -
-        BUFFER_PX
-      : rect.top + window.scrollY - navHeight - BUFFER_PX;
+    const heading = (element.querySelector("[data-eyebrow]") ||
+      element.querySelector("h2")) as HTMLElement | null;
+    const scrollPosition =
+      heading != null
+        ? layoutTop(heading) - navHeight - BUFFER_PX
+        : rect.top + window.scrollY - navHeight - BUFFER_PX;
     return scrollPosition;
   }
   // Other sections: center the section in the viewport
