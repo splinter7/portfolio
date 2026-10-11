@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 /*
  * Light, airy, minimal contemporary design tokens
  * paper       #fafaf7  page background (warm paper)
+ * paper-deep  #f3f3ed  hero band (a whisper darker than paper)
  * surface     #ffffff  cards / nav surfaces
  * ink         #16161a  headings / primary text
  * body        #3f3f46  paragraph text (~10:1 on paper — AAA)
@@ -46,6 +47,12 @@ export const StyledHero = styled.section`
   /* Slightly more bottom padding biases the content above vertical center,
      so the first screen feels composed rather than bottom-heavy with void. */
   padding: 104px 0 152px;
+  background: #f3f3ed;
+  /* Full-bleed cover band: the hero lives inside the centered content column,
+     so extend its background to the viewport edges (clipped vertically to the
+     hero itself) without moving any markup. */
+  box-shadow: 0 0 0 100vmax #f3f3ed;
+  clip-path: inset(0 -100vmax);
 
   @media (max-width: 768px) {
     padding: 96px 0 120px;
