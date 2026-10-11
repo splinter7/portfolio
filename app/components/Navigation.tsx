@@ -19,15 +19,14 @@ const calculateScrollPosition = (
   element: HTMLElement,
 ): number => {
   const rect = element.getBoundingClientRect();
-  const isDesktop = window.innerWidth > 768;
-  // "featured-project" and "experience" always scroll to the top (below the nav):
-  // centering math can target a position past the page's max scroll, and the
-  // browser clamps it — leaving the scrollspy highlighting the wrong section.
-  // "about" stays centered on desktop, top-aligned on smaller screens.
+  // "featured-project", "experience", and "about" always scroll to the top
+  // (below the nav): centering math can target a position past the page's max
+  // scroll, and the browser clamps it — leaving the scrollspy highlighting the
+  // wrong section.
   const scrollToTop =
     sectionId === "featured-project" ||
     sectionId === "experience" ||
-    (sectionId === "about" && !isDesktop);
+    sectionId === "about";
   const navElement = document.querySelector("nav");
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
@@ -118,13 +117,12 @@ export default function Navigation() {
       );
       const scrollPosition = calculateScrollPosition(sectionId, element);
       // Use instant scroll only for sections that are using a scroll-to-top layout
-      // (featured-project and experience on all viewports, about only on smaller
-      // screens to match calculateScrollPosition)
-      const isDesktop = window.innerWidth > 768;
+      // (featured-project, experience, and about on all viewports, matching
+      // calculateScrollPosition)
       const useInstantScroll =
         sectionId === "featured-project" ||
         sectionId === "experience" ||
-        (sectionId === "about" && !isDesktop);
+        sectionId === "about";
       window.scrollTo({
         top: scrollPosition,
         behavior: useInstantScroll ? "auto" : "smooth",
