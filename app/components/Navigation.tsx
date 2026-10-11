@@ -185,7 +185,7 @@ export default function Navigation() {
       </StyledNavItem>
       <StyledNavItem>
         <StyledNavLink
-          href="https://www.linkedin.com/in/stewart-small-a45a91b0"
+          href="/resume"
           target="_blank"
           rel="noopener noreferrer"
           $isActive={false}
