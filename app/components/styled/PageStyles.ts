@@ -438,12 +438,14 @@ export const StyledTechLabel = styled.p`
 
 export const StyledTechGridWrapper = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
 `;
 
 export const StyledTechGrid = styled.ul`
-  display: contents;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   list-style: none;
   margin: 0;
   padding: 0;
