@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Navigation from "./components/Navigation";
 import Reveal from "./components/Reveal";
+import TypingMotif from "./components/TypingMotif";
 import {
   AudioStreamingArt,
   JCarouselArt,
@@ -88,6 +89,9 @@ export default function Home() {
         <StyledMain>
           <ScrollSection sectionId="hero">
             <StyledHero>
+              <Reveal>
+                <TypingMotif />
+              </Reveal>
               <Reveal>
                 <StyledEyebrow>Hello, I&apos;m</StyledEyebrow>
               </Reveal>

@@ -123,6 +123,45 @@ export const StyledHeroLink = styled.a`
 `;
 
 
+/* ------------------------------ typing motif ------------------------------- */
+
+const blink = keyframes`
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+`;
+
+// Small terminal-style typing motif for the hero: a prompt plus a looping
+// typed command with a blinking block cursor. Decorative (aria-hidden in the
+// component); kept at kicker scale so it stays quiet.
+export const StyledTypingMotif = styled.p`
+  font-family: ${fontMono};
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  color: #3f3f46;
+  margin: 0 0 22px;
+`;
+
+export const StyledTypingPrompt = styled.span`
+  color: #2b4eff;
+  margin-right: 0.6em;
+`;
+
+export const StyledTypingCursor = styled.span`
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: #2b4eff;
+  border-radius: 1px;
+  animation: ${blink} 1.1s steps(1) infinite;
+`;
+
+
 /* ------------------------------- scroll cue -------------------------------- */
 
 const scrollLineDraw = keyframes`
