@@ -153,11 +153,12 @@ export const StyledTypingPrompt = styled.span`
 export const StyledTypingCursor = styled.span`
   display: inline-block;
   width: 0.55em;
-  height: 1em;
+  height: 0.72em;
   margin-left: 3px;
-  /* Align the block's bottom with the text baseline (not the descender depth),
-     so it sits flush with the glyphs instead of hanging below them. */
-  vertical-align: baseline;
+  /* Vertically centered with the ❯ prompt and the typed text (not dropped to
+     the baseline): middle aligns the block's center with the x-height middle,
+     where the prompt glyph visually sits. */
+  vertical-align: middle;
   background: #2b4eff;
   border-radius: 1px;
   animation: ${blink} 1.1s steps(1) infinite;
