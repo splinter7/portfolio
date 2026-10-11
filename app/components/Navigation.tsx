@@ -69,7 +69,13 @@ export default function Navigation() {
       }
 
       const sections = ["hero", "about", "featured-project", "experience"];
-      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      // Reference the top of the content area (just below the nav): nav clicks
+      // land each section's heading exactly there, so the highlight always
+      // matches the section you navigated to. Viewport-center math overshoots
+      // short sections (About) on tall viewports and highlights the next one.
+      const navEl = document.querySelector("nav");
+      const navH = navEl ? navEl.getBoundingClientRect().height : 80;
+      const scrollPosition = window.scrollY + navH + 24;
 
       for (const sectionId of sections) {
         const element = document.getElementById(sectionId);

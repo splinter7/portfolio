@@ -518,11 +518,16 @@ export const StyledNavLink = styled.a<{ $isActive: boolean }>`
     transition: width 0.3s ${easeOut};
   }
 
-  &:hover {
-    color: #16161a;
+  // Hover feedback only on devices with a real hover input: on touch screens
+  // :hover sticks to the last-tapped link and its underline is identical to
+  // the active-section one, which reads as two sections highlighted at once.
+  @media (hover: hover) {
+    &:hover {
+      color: #16161a;
 
-    &::after {
-      width: 100%;
+      &::after {
+        width: 100%;
+      }
     }
   }
 `;
