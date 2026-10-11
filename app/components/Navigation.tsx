@@ -31,10 +31,12 @@ const calculateScrollPosition = (
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
   if (scrollToTop) {
-    // Scroll so the section heading (h2) lands below the nav — use heading position when available so
-    // we're correct for all viewports (section top varies due to centering/padding)
+    // Scroll so the section's eyebrow kicker (the small mono words above the
+    // title) lands below the nav — it counts as the top of the section, so
+    // the nav must not cover it. Falls back to the h2, then the section top.
     const BUFFER_PX = 24;
-    const heading = element.querySelector("h2");
+    const heading =
+      element.querySelector("[data-eyebrow]") || element.querySelector("h2");
     const scrollPosition = heading
       ? heading.getBoundingClientRect().top +
         window.scrollY -

@@ -136,7 +136,7 @@ export default function Home() {
           <ScrollSection sectionId="about">
             <StyledSection>
               <Reveal>
-                <StyledEyebrow>01 · About</StyledEyebrow>
+                <StyledEyebrow data-eyebrow>01 · About</StyledEyebrow>
                 <StyledHeading>About</StyledHeading>
               </Reveal>
               <Reveal delay={80}>
@@ -183,7 +183,7 @@ export default function Home() {
           <ScrollSection sectionId="featured-project">
             <StyledSection>
               <Reveal>
-                <StyledEyebrow>02 · Projects</StyledEyebrow>
+                <StyledEyebrow data-eyebrow>02 · Projects</StyledEyebrow>
                 <StyledHeading>Featured Projects</StyledHeading>
               </Reveal>
               <StyledCardsContainer>
@@ -343,7 +343,7 @@ export default function Home() {
           <ScrollSection sectionId="experience">
             <StyledSection>
               <Reveal>
-                <StyledEyebrow>03 · Experience</StyledEyebrow>
+                <StyledEyebrow data-eyebrow>03 · Experience</StyledEyebrow>
                 <StyledHeading>Experience</StyledHeading>
               </Reveal>
               <Reveal delay={80}>
