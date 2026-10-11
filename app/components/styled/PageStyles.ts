@@ -153,9 +153,11 @@ export const StyledTypingPrompt = styled.span`
 export const StyledTypingCursor = styled.span`
   display: inline-block;
   width: 0.55em;
-  height: 1.05em;
+  height: 1em;
   margin-left: 3px;
-  vertical-align: text-bottom;
+  /* Align the block's bottom with the text baseline (not the descender depth),
+     so it sits flush with the glyphs instead of hanging below them. */
+  vertical-align: baseline;
   background: #2b4eff;
   border-radius: 1px;
   animation: ${blink} 1.1s steps(1) infinite;

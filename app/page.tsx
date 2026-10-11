@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navigation from "./components/Navigation";
 import Reveal from "./components/Reveal";
 import TypingMotif from "./components/TypingMotif";
+import { scrollToSection } from "./components/scrollToSection";
 import {
   AudioStreamingArt,
   JCarouselArt,
@@ -69,6 +70,10 @@ function ScrollCue() {
   return (
     <StyledScrollCue
       href="#about"
+      onClick={(e) => {
+        e.preventDefault();
+        scrollToSection("about");
+      }}
       aria-label="Scroll to about section"
       aria-hidden={dismissed}
       tabIndex={dismissed ? -1 : 0}

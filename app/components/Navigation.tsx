@@ -12,42 +12,7 @@ import {
   StyledHamburgerButton,
   StyledMobileMenu,
 } from "./styled/PageStyles";
-
-// Helper function to calculate scroll position for a section
-const calculateScrollPosition = (
-  sectionId: string,
-  element: HTMLElement,
-): number => {
-  const rect = element.getBoundingClientRect();
-  // "featured-project", "experience", and "about" always scroll to the top
-  // (below the nav): centering math can target a position past the page's max
-  // scroll, and the browser clamps it — leaving the scrollspy highlighting the
-  // wrong section.
-  const scrollToTop =
-    sectionId === "featured-project" ||
-    sectionId === "experience" ||
-    sectionId === "about";
-  const navElement = document.querySelector("nav");
-  const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
-
-  if (scrollToTop) {
-    // Scroll so the section's eyebrow kicker (the small mono words above the
-    // title) lands below the nav — it counts as the top of the section, so
-    // the nav must not cover it. Falls back to the h2, then the section top.
-    const BUFFER_PX = 24;
-    const heading =
-      element.querySelector("[data-eyebrow]") || element.querySelector("h2");
-    const scrollPosition = heading
-      ? heading.getBoundingClientRect().top +
-        window.scrollY -
-        navHeight -
-        BUFFER_PX
-      : rect.top + window.scrollY - navHeight - BUFFER_PX;
-    return scrollPosition;
-  }
-  // Other sections: center the section in the viewport
-  return rect.top + window.scrollY - window.innerHeight / 2 + rect.height / 2;
-};
+import { scrollToSection } from "./scrollToSection";
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -117,26 +82,9 @@ export default function Navigation() {
     };
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      window.dispatchEvent(
-        new CustomEvent("navigation-start", { detail: { sectionId } }),
-      );
-      const scrollPosition = calculateScrollPosition(sectionId, element);
-      // Use instant scroll only for sections that are using a scroll-to-top layout
-      // (featured-project, experience, and about on all viewports, matching
-      // calculateScrollPosition)
-      const useInstantScroll =
-        sectionId === "featured-project" ||
-        sectionId === "experience" ||
-        sectionId === "about";
-      window.scrollTo({
-        top: scrollPosition,
-        behavior: useInstantScroll ? "auto" : "smooth",
-      });
-      setIsMenuOpen(false); // Close menu after navigation
-    }
+  const handleSectionNav = (sectionId: string) => {
+    scrollToSection(sectionId);
+    setIsMenuOpen(false); // Close menu after navigation
   };
 
   const navLinks = (
@@ -146,7 +94,7 @@ export default function Navigation() {
           href="#hero"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection("hero");
+            handleSectionNav("hero");
           }}
           $isActive={activeSection === "hero"}
         >
@@ -158,7 +106,7 @@ export default function Navigation() {
           href="#about"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection("about");
+            handleSectionNav("about");
           }}
           $isActive={activeSection === "about"}
         >
@@ -170,7 +118,7 @@ export default function Navigation() {
           href="#featured-project"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection("featured-project");
+            handleSectionNav("featured-project");
           }}
           $isActive={activeSection === "featured-project"}
         >
@@ -182,7 +130,7 @@ export default function Navigation() {
           href="#experience"
           onClick={(e) => {
             e.preventDefault();
-            scrollToSection("experience");
+            handleSectionNav("experience");
           }}
           $isActive={activeSection === "experience"}
         >
@@ -206,14 +154,14 @@ export default function Navigation() {
     <StyledNav $scrolled={scrolled}>
       <StyledNavContent>
         <StyledNavLogo
-          onClick={() => scrollToSection("hero")}
+          onClick={() => handleSectionNav("hero")}
           role="button"
           tabIndex={0}
           aria-label="Back to top"
           onKeyDown={(e) => {
             if (e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              scrollToSection("hero");
+              handleSectionNav("hero");
             }
           }}
         >
