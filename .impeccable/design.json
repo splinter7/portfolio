@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-20T16:49:35.380Z",
+  "generatedAt": "2026-11-20T19:20:10.440Z",
   "title": "Design System: Stewart Small Portfolio",
   "extensions": {
     "colorMeta": {
@@ -145,6 +145,11 @@
         "name": "dur-slow",
         "value": "400ms",
         "purpose": "Hover fade-out on pills and icon buttons."
+      },
+      {
+        "name": "spread-rise",
+        "value": "animation-timeline: view(); animation-range: entry 0% entry 40%; 12px rise + fade",
+        "purpose": "Scroll-linked entrance for project spreads only. Pure CSS; skipped without support or with reduced motion."
       }
     ],
     "breakpoints": [
@@ -206,7 +211,7 @@
       "Warm off-white paper with ink typography and one accent",
       "Left-aligned, editorial layout: heading column on the left, content on the right",
       "Flat surfaces separated by 1px hairlines; no shadows",
-      "Almost no motion: a blinking cursor in the hero and the project cover animations, nothing on scroll",
+      "Almost no motion: a blinking cursor in the hero, colour fades on hover, and one scroll-linked rise on the project spreads",
       "Monospace reserved for real data: commands, tech names, dates"
     ],
     "rules": [
@@ -241,7 +246,7 @@
     "donts": [
       "Don't add eyebrow labels, kickers, or section numbers (\"01 · About\").",
       "Don't lift elements on hover or add drop shadows.",
-      "Don't wrap sections in staggered fade-up reveals or add scroll-triggered animation.",
+      "Don't wrap sections in staggered fade-up reveals or hide content until an animation runs. The only scroll motion is the project spreads' scroll-linked rise.",
       "Don't add decorative motifs (waveforms, particles, background graphics) that nothing else on the page connects to.",
       "Don't add film grain, noise overlays, gradient text, or glass/blur panels.",
       "Don't use monospace for anything that isn't code or data.",

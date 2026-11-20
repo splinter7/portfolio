@@ -337,6 +337,23 @@ export const StyledProjectSpreads = styled.div`
   }
 `;
 
+// Scroll-linked entrance for each project spread: a 12px rise and fade that
+// tracks the spread's position as it scrolls in, finished once 40% of it is
+// in view. Pure CSS (animation-timeline: view()), so nothing waits on
+// JavaScript or a timer and content is never left blank. Browsers without
+// scroll-driven animations, and visitors who prefer reduced motion, see the
+// spreads with no animation at all.
+const spreadRise = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+`;
+
 export const StyledProjectSpread = styled.article<{ $flip: boolean }>`
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -355,10 +372,16 @@ export const StyledProjectSpread = styled.article<{ $flip: boolean }>`
       order: 0;
     }
   }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      animation: ${spreadRise} linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
 `;
 
-// The cover, framed: 12px radius, hairline border, illustration that
-// cross-fades to the live-site screenshot on hover (see globals.css).
 // Link wrapper around the browser-frame cover (see CoverStyles.ts, which
 // darkens the frame border while this link is hovered).
 export const StyledSpreadCover = styled.a`

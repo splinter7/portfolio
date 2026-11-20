@@ -103,7 +103,7 @@ The site is light-only and calm. Hover feedback changes color, border or fill, n
 - Warm off-white paper with ink typography and one accent
 - Left-aligned, editorial layout: heading column on the left, content on the right
 - Flat surfaces separated by 1px hairlines; no shadows
-- Almost no motion: a blinking cursor in the hero and colour fades on hover, nothing on scroll
+- Almost no motion: a blinking cursor in the hero, colour fades on hover, and one scroll-linked rise on the project spreads
 - Monospace reserved for real data: commands, tech names, dates
 
 ## Colors
@@ -190,6 +190,7 @@ Flat. There are no shadows anywhere. Depth comes from tone (surface white on pap
 - **Cover:** see Project cover below.
 - **Hover:** the cover's frame border darkens to muted; title turns Signal Blue.
 - **Icon buttons:** borderless, so hover adds a paper-deep circle behind the icon and turns it ink; pressed deepens the circle to hairline.
+- **Entrance:** each spread rises 12px and fades in as it scrolls into view, finishing once 40% of it is visible. It's scroll-linked CSS (`animation-timeline: view()`), not a timed reveal: nothing waits on JavaScript, nothing is ever left blank, and unsupported browsers or reduced-motion visitors simply see the spread. This is the page's only scroll motion.
 - **Component:** `app/components/ProjectSpread.tsx`.
 
 ### Project cover
@@ -232,7 +233,7 @@ Flat. There are no shadows anywhere. Depth comes from tone (surface white on pap
 ### Don't:
 - **Don't** add eyebrow labels, kickers, or section numbers ("01 · About").
 - **Don't** lift elements on hover or add drop shadows.
-- **Don't** wrap sections in staggered fade-up reveals or add scroll-triggered animation.
+- **Don't** wrap sections in staggered fade-up reveals or hide content until an animation runs. The only scroll motion is the project spreads' scroll-linked rise.
 - **Don't** add decorative motifs (waveforms, particles, background graphics) that nothing else on the page connects to.
 - **Don't** add film grain, noise overlays, gradient text, or glass/blur panels.
 - **Don't** use monospace for anything that isn't code or data.

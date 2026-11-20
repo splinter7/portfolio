@@ -110,7 +110,7 @@ Rules:
 Don't:
 - Don't add eyebrow labels, kickers, or section numbers ("01 · About").
 - Don't lift elements on hover or add drop shadows.
-- Don't wrap sections in staggered fade-up reveals or add scroll-triggered animation.
+- Don't wrap sections in staggered fade-up reveals or hide content until an animation runs. The only scroll motion is the project spreads' scroll-linked rise.
 - Don't add decorative motifs (waveforms, particles, background graphics) that nothing else on the page connects to.
 - Don't add film grain, noise overlays, gradient text, or glass/blur panels.
 - Don't use monospace for anything that isn't code or data.
