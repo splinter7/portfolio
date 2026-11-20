@@ -70,12 +70,11 @@ export const StyledBrowserAddress = styled.span`
 `;
 
 // The page area keeps the 16:10 proportion of the screenshots.
-// $fitContent: the view takes its content's height instead of 16:10. Used
-// for code in the case study hero, where a full-width 16:10 frame would be
-// mostly empty.
-export const StyledBrowserView = styled.span<{ $fitContent?: boolean }>`
+export const StyledBrowserView = styled.span`
   display: block;
-  aspect-ratio: ${(p) => (p.$fitContent ? "auto" : "16 / 10")};
+  /* Positioned so next/image's "fill" screenshot sizes to this box. */
+  position: relative;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   /* Lets the code view size its text to the frame (cqi units). */
   container-type: inline-size;

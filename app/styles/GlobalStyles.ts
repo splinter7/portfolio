@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
     --text-lg: 1.125rem;
     --text-xl: clamp(1.125rem, 2.2vw, 1.375rem);
     --text-2xl: clamp(1.75rem, 3.6vw, 2.25rem);
-    --text-3xl: clamp(2.5rem, 6.5vw, 4.25rem);
+    --text-3xl: clamp(2.25rem, 4.5vw, 3.25rem);
     --text-display: clamp(3.25rem, 10.5vw, 6rem);
 
     --leading-tight: 1.1;

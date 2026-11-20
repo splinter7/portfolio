@@ -57,7 +57,7 @@ const JOBS = [
     company: "HomeStars",
     dates: "Jun 2024 – Oct 2025",
     location: "Toronto",
-    text: "Owned team delivery (agile ceremonies, sprint outcomes, cross-team coordination), removing blockers and shipping predictably with high quality.",
+    text: "Owned team delivery (agile ceremonies, sprint outcomes, cross-team coordination), removing blockers, mentoring junior developers, and shipping predictably with high quality.",
   },
   {
     role: "Full Stack Engineer (L3)",

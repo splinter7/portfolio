@@ -6,12 +6,30 @@ import { media } from "../../styles/media";
  * home page: a narrow left column (here, project facts) beside the content.
  */
 
+// Split header: back link, title and summary on the left, the project cover
+// on the right (the same pairing as the home page spreads), so the whole
+// header fits in one screen. Below 960px it stacks with the cover last.
 export const StyledCaseHeader = styled.header`
-  padding: calc(var(--nav-h) + var(--space-8)) 0 var(--space-7);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-7);
+  align-items: center;
+  padding: calc(var(--nav-h) + var(--space-8)) 0 var(--space-9);
+
+  ${media.lg} {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-6);
+    padding: calc(var(--nav-h) + var(--space-7)) 0 var(--space-8);
+  }
 
   ${media.md} {
-    padding: calc(var(--nav-h) + var(--space-6)) 0 var(--space-6);
+    padding: calc(var(--nav-h) + var(--space-6)) 0 var(--space-7);
   }
+`;
+
+// The left column of the header (back link, draft note, title, summary).
+export const StyledCaseIntro = styled.div`
+  min-width: 0;
 `;
 
 export const StyledBackLink = styled.a`
@@ -46,7 +64,7 @@ export const StyledCaseTitle = styled.h1`
 
 export const StyledCaseLede = styled.p`
   max-width: 52ch;
-  font-size: var(--text-xl);
+  font-size: var(--text-lg);
   line-height: 1.5;
   color: var(--color-body);
   margin: 0;
@@ -62,15 +80,6 @@ export const StyledDraftNote = styled.p`
   background: var(--color-paper-deep);
   border: 1px solid var(--color-hairline-strong);
   border-radius: var(--radius-sm);
-`;
-
-// Holds the browser-frame cover, which draws its own border.
-export const StyledCaseCover = styled.div`
-  margin-bottom: var(--space-9);
-
-  ${media.lg} {
-    margin-bottom: var(--space-8);
-  }
 `;
 
 export const StyledCaseBody = styled.div`

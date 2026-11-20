@@ -19,7 +19,7 @@ import {
   StyledCaseTitle,
   StyledCaseLede,
   StyledDraftNote,
-  StyledCaseCover,
+  StyledCaseIntro,
   StyledCaseBody,
   StyledFacts,
   StyledFactStack,
@@ -49,22 +49,21 @@ export default function CaseStudyView({ study, next }: Props) {
 
       <StyledMain>
         <StyledCaseHeader>
-          <StyledBackLink as={Link} href="/#featured-project">
-            <FiArrowLeft size={16} aria-hidden /> All projects
-          </StyledBackLink>
-          {draft && (
-            <StyledDraftNote>
-              Draft: fact-check before publishing. Hidden in production until
-              you remove <code>draft: true</code>.
-            </StyledDraftNote>
-          )}
-          <StyledCaseTitle>{title}</StyledCaseTitle>
-          <StyledCaseLede>{summary}</StyledCaseLede>
-        </StyledCaseHeader>
-
-        <StyledCaseCover>
+          <StyledCaseIntro>
+            <StyledBackLink as={Link} href="/#featured-project">
+              <FiArrowLeft size={16} aria-hidden /> All projects
+            </StyledBackLink>
+            {draft && (
+              <StyledDraftNote>
+                Draft: fact-check before publishing. Hidden in production
+                until you remove <code>draft: true</code>.
+              </StyledDraftNote>
+            )}
+            <StyledCaseTitle>{title}</StyledCaseTitle>
+            <StyledCaseLede>{summary}</StyledCaseLede>
+          </StyledCaseIntro>
           <ProjectCover project={study} variant="hero" />
-        </StyledCaseCover>
+        </StyledCaseHeader>
 
         <StyledCaseBody>
           <StyledFacts>

@@ -21,7 +21,7 @@ typography:
     letterSpacing: "-0.035em"
   page-title:
     fontFamily: "Bricolage Grotesque, Inter, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 6.5vw, 4.25rem)"
+    fontSize: "clamp(2.25rem, 4.5vw, 3.25rem)"
     fontWeight: 700
     lineHeight: 1
     letterSpacing: "-0.03em"

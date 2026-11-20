@@ -196,15 +196,14 @@ Flat. There are no shadows anywhere. Depth comes from tone (surface white on pap
 ### Project cover
 - **Character:** the project shown as a real thing in a browser, not an illustration of it.
 - **Frame:** a minimal browser window: 12px radius, hairline-strong border, a 32px paper-deep bar with three dots and the address (live site, or the repo when there isn't one) in mono on a surface pill.
-- **View (16:10):** in order of preference, a screenshot of the live site (653×408, by slug in `app/components/projectCovers.tsx` and `shots.ts`), the project's `coverCode` excerpt from its markdown front matter, or the project title in the display face.
-- **Code view:** ink background, paper text in mono with ligatures off so operators read as typed, a file label above a faint rule, highlighted lines on a 10% paper wash, comments at 50%. Text scales with the frame (2.6cqi, 10–18px); long lines wrap with a hanging indent and the block centres vertically without ever clipping its first lines.
+- **View (16:10):** in order of preference, a screenshot of the live site (a 1280×800 viewport captured at 2× = 2560×1600, in `public/images/projects/<slug>.jpg`, mapped by slug in `app/components/projectCovers.tsx` and served through next/image as resized WebP/AVIF; the case study hero preloads, home page spreads lazy-load), the project's `coverCode` excerpt from its markdown front matter, or the project title in the display face.
+- **Code view:** ink background, paper text in mono with ligatures off so operators read as typed, a file label above a faint rule, highlighted lines on a 10% paper wash, comments at 50%. Text scales with the frame (2.6cqi, 10–18px; about 12–14px at today's cover sizes); long lines wrap with a hanging indent and the block centres vertically without ever clipping its first lines.
 - **No illustrations:** don't draw stand-in art for a project. Use a screenshot, real code or the title.
 - **Component:** `app/components/projectCovers.tsx`, styles in `CoverStyles.ts`.
 
 ### Case study page (`/projects/[slug]`)
 - **Content:** one markdown file per project in `content/projects/<slug>.md`, front matter for title, summary, order, stack, source, live, year, role and draft. `_template.md` shows the shape. Body sections: Overview, The challenge, Approach, Design decisions, Outcome.
-- **Header:** "All projects" back link, then the title in the display face (`--text-3xl`, max 18ch) and the summary as a `--text-xl` lede.
-- **Cover:** the project cover (below) at full width. A code cover takes the height of its code instead of 16:10.
+- **Header (split):** a two-column grid (1fr text, 1.1fr cover, 48px gap, vertically centred), echoing the home page spreads, so the whole header fits in one screen. Left: "All projects" back link, the title in the display face (`--text-3xl`, 36–52px, max 18ch) and the summary as a `--text-lg` lede. Right: the project cover at 16:10 (about 520px wide on a laptop), preloaded as the page's main image. Below 960px it stacks: text, then the cover at full width.
 - **Body:** the home page's section grid. Left 200px column holds the project facts (role, year, stack in mono, links), sticky below the nav on desktop and a wrapped row above the article on smaller screens. Right column is the article at 65ch, `--text-lg` body text, display-face h2s at `--text-2xl` (same as section headings) with 64px above them.
 - **Prose:** inline code and code blocks on paper-deep, links in ink with a hairline underline that turns Signal Blue on hover, pull quotes in the display face with no side bar.
 - **Next case study:** a full-width link above the footer with the next project's title in headline size; wraps to the first.
