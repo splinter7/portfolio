@@ -22,9 +22,8 @@ const ScrollSectionContext = createContext<ScrollSectionContextType | null>(
   null,
 );
 
-// Plain semantic section wrapper. Scroll-reveal animation is handled by the
-// Reveal component; this wrapper only provides the anchor id and registers
-// the section for scroll tracking.
+// Plain semantic section wrapper: provides the anchor id and registers the
+// section for scroll tracking.
 const StyledScrollSection = styled.section`
   width: 100%;
   scroll-margin-top: 76px;

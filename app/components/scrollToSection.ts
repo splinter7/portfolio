@@ -10,9 +10,8 @@ const TOP_ALIGNED_SECTIONS = new Set([
   "about",
 ]);
 
-// Document-relative top of an element, ignoring CSS transforms (e.g. the
-// scroll-reveal's translateY): getBoundingClientRect includes transforms,
-// which would skew the first navigation to a not-yet-revealed section.
+// Document-relative top of an element, ignoring CSS transforms:
+// getBoundingClientRect includes transforms, offsetTop does not.
 const layoutTop = (el: HTMLElement): number => {
   let top = 0;
   let node: HTMLElement | null = el;
@@ -33,12 +32,10 @@ const calculateScrollPosition = (
   const navHeight = navElement ? navElement.getBoundingClientRect().height : 80;
 
   if (TOP_ALIGNED_SECTIONS.has(sectionId)) {
-    // Scroll so the section's eyebrow kicker (the small mono words above the
-    // title) lands below the nav — it counts as the top of the section, so
-    // the nav must not cover it. Falls back to the h2, then the section top.
+    // Scroll so the section's h2 lands just below the nav. Falls back to the
+    // section top.
     const BUFFER_PX = 24;
-    const heading = (element.querySelector("[data-eyebrow]") ||
-      element.querySelector("h2")) as HTMLElement | null;
+    const heading = element.querySelector("h2") as HTMLElement | null;
     const scrollPosition =
       heading != null
         ? layoutTop(heading) - navHeight - BUFFER_PX

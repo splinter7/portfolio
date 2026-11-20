@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
 import {
   StyledNav,
   StyledNavContent,
@@ -13,6 +14,7 @@ import {
   StyledMobileMenu,
 } from "./styled/PageStyles";
 import { scrollToSection } from "./scrollToSection";
+import { trackEvent } from "./trackEvent";
 
 export default function Navigation() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -98,7 +100,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === "hero"}
         >
-          01. Home
+          Home
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -110,7 +112,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === "about"}
         >
-          02. About
+          About
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -122,7 +124,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === "featured-project"}
         >
-          03. Featured Projects
+          Projects
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -134,7 +136,7 @@ export default function Navigation() {
           }}
           $isActive={activeSection === "experience"}
         >
-          04. Experience
+          Experience
         </StyledNavLink>
       </StyledNavItem>
       <StyledNavItem>
@@ -143,8 +145,9 @@ export default function Navigation() {
           target="_blank"
           rel="noopener noreferrer"
           $isActive={false}
+          {...trackEvent("resume", { location: "nav" })}
         >
-          05. Resume
+          Resume <FiArrowUpRight size={14} aria-hidden />
         </StyledNavLink>
       </StyledNavItem>
     </>
@@ -154,16 +157,12 @@ export default function Navigation() {
     <StyledNav $scrolled={scrolled}>
       <StyledNavContent>
         <StyledNavLogo
-          onClick={() => handleSectionNav("hero")}
-          role="button"
-          tabIndex={0}
-          aria-label="Back to top"
-          onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
-              e.preventDefault();
-              handleSectionNav("hero");
-            }
+          href="#hero"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSectionNav("hero");
           }}
+          aria-label="Back to top"
         >
           S.
         </StyledNavLogo>

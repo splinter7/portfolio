@@ -1,127 +1,153 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import { media } from "../../styles/media";
 
 /*
- * Light, airy, minimal contemporary design tokens
- * paper       #fafaf7  page background (warm paper)
- * paper-deep  #f3f3ed  hero band (a whisper darker than paper)
- * surface     #ffffff  cards / nav surfaces
- * ink         #16161a  headings / primary text
- * body        #3f3f46  paragraph text (~10:1 on paper — AAA)
- * muted       #6e6e76  secondary text (4.8:1 on paper — AA)
- * hairline    #e9e9e4  borders / dividers
- * accent      #2b4eff  links / active states (5.5:1 on paper — AA)
- * accent-soft rgba(43,78,255,0.07) hover washes
+ * Every value here comes from the tokens in app/styles/GlobalStyles.ts.
+ * See DESIGN.md for the rules behind them.
  */
 
-const fontSans = `var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-const fontMono = `var(--font-jetbrains-mono), "SF Mono", "SFMono-Regular", Menlo, Consolas, monospace`;
-const easeOut = `cubic-bezier(0.22, 1, 0.36, 1)`;
+// Hover colour fade shared by every pill and icon button. The resting
+// state's transition is the fade OUT (slower, so the colour eases away);
+// :hover swaps in a quicker fade IN; :active stays snappy so a click
+// registers at once. Ease-in-out (not ease-out) so the colour change is
+// spread across the whole duration and reads as a fade, not a snap.
+// Reduced motion zeroes all of it (see globals.css).
+const hoverFade = css`
+  transition-property: background-color, border-color, color;
+  transition-duration: var(--dur-slow);
+  transition-timing-function: var(--ease-in-out);
+
+  &:hover {
+    transition-duration: var(--dur-base);
+  }
+
+  &:active {
+    transition-duration: var(--dur-fast);
+  }
+`;
+
+// Shared hover for bordered pills and icon buttons: the control inverts to
+// an ink fill with paper text, like the logo block. No lift, no shadow.
+// Pressed steps back to body grey so the click registers.
+// Deliberately not behind media.hover: some desktop setups (touchscreen
+// laptops, embedded browsers) report no hover support and would never see
+// it. On phones a tapped pill may stay dark until the next tap; harmless.
+const invertOnHover = css`
+  ${hoverFade}
+
+  &:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  &:active {
+    background: var(--color-body);
+    border-color: var(--color-body);
+    color: var(--color-paper);
+  }
+`;
 
 /* ---------------------------------- layout --------------------------------- */
 
 export const StyledMain = styled.main`
-  max-width: 1080px;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: 0 32px;
+  padding: 0 var(--gutter);
   width: 100%;
-  font-family: ${fontSans};
-  color: #16161a;
-  line-height: 1.6;
-
-  @media (max-width: 768px) {
-    padding: 0 20px;
-  }
+  box-sizing: border-box;
+  color: var(--color-ink);
 `;
 
 /* ----------------------------------- hero ---------------------------------- */
 
-export const StyledHero = styled.section`
+// Fills the first screen on every device. svh = the height actually visible
+// on phones (excluding the browser bars), with vh as a fallback; min-height
+// so short or landscape screens grow instead of cropping. More padding below
+// than above sits the content slightly above centre and keeps it clear of
+// the scroll cue.
+export const StyledHero = styled.div`
   position: relative;
-  width: 100%;
-  min-height: 92vh;
+  min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  /* Slightly more bottom padding biases the content above vertical center,
-     so the first screen feels composed rather than bottom-heavy with void. */
-  padding: 104px 0 152px;
-  background: #f3f3ed;
-  /* Full-bleed cover band: the hero lives inside the centered content column,
-     so extend its background to the viewport edges (clipped vertically to the
-     hero itself) without moving any markup. */
-  box-shadow: 0 0 0 100vmax #f3f3ed;
-  clip-path: inset(0 -100vmax);
+  padding: calc(var(--nav-h) + var(--space-7)) 0
+    calc(var(--space-9) + var(--space-7));
+  box-sizing: border-box;
 
-  @media (max-width: 768px) {
-    padding: 96px 0 120px;
+  ${media.md} {
+    padding: calc(var(--nav-h) + var(--space-6)) 0
+      calc(var(--space-9) + var(--space-5));
   }
 `;
 
 export const StyledName = styled.h1`
-  font-family: ${fontSans};
-  font-size: clamp(2.9rem, 9vw, 5.75rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-size: var(--text-display);
   font-weight: 700;
-  color: #16161a;
-  margin: 0 0 12px;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
 `;
 
 export const StyledTitle = styled.p`
-  font-family: ${fontSans};
-  font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
   font-weight: 500;
   letter-spacing: -0.01em;
-  color: #3f3f46;
-  margin: 0 0 20px;
+  color: var(--color-body);
+  margin: 0;
+`;
+
+export const StyledHeroFoot = styled.div`
+  margin-top: var(--space-8);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: var(--space-6);
+
+  ${media.md} {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    margin-top: var(--space-6);
+  }
 `;
 
 export const StyledSubtitle = styled.p`
-  font-family: ${fontSans};
-  max-width: 620px;
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: #3f3f46;
-  margin: 0 0 36px;
+  max-width: 46ch;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--color-body);
+  margin: 0;
+  text-wrap: pretty;
 `;
 
 export const StyledHeroLinks = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+  gap: var(--space-2);
 `;
 
 export const StyledHeroLink = styled.a`
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   min-height: 44px;
-  padding: 12px 20px;
-  font-family: ${fontSans};
-  font-size: 0.9rem;
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+  font-size: var(--text-sm);
   font-weight: 500;
-  color: #16161a;
-  background: #ffffff;
-  border: 1px solid #e9e9e4;
-  border-radius: 999px;
+  color: var(--color-ink);
+  background: var(--color-surface);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-pill);
   text-decoration: none;
-  transition:
-    transform 0.35s ${easeOut},
-    box-shadow 0.35s ${easeOut},
-    border-color 0.2s ease,
-    color 0.2s ease;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(22, 22, 26, 0.08);
-    border-color: #d8d8d2;
-    color: #2b4eff;
-  }
+  ${invertOnHover}
 `;
-
 
 /* ------------------------------ typing motif ------------------------------- */
 
@@ -134,19 +160,17 @@ const blink = keyframes`
   }
 `;
 
-// Small terminal-style typing motif for the hero: a prompt plus a looping
-// typed command with a blinking block cursor. Decorative (aria-hidden in the
-// component); kept at kicker scale so it stays quiet.
+// Terminal prompt that types "whoami"; the name below answers it.
+// Decorative (aria-hidden in the component).
 export const StyledTypingMotif = styled.p`
-  font-family: ${fontMono};
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  color: #3f3f46;
-  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: 0 0 var(--space-5);
 `;
 
 export const StyledTypingPrompt = styled.span`
-  color: #2b4eff;
+  color: var(--color-accent);
   margin-right: 0.6em;
 `;
 
@@ -155,15 +179,12 @@ export const StyledTypingCursor = styled.span`
   width: 0.55em;
   height: 0.72em;
   margin-left: 3px;
-  /* Vertically centered with the ❯ prompt and the typed text (not dropped to
-     the baseline): middle aligns the block's center with the x-height middle,
-     where the prompt glyph visually sits. */
+  /* Centered with the prompt glyph rather than sitting on the baseline. */
   vertical-align: middle;
-  background: #2b4eff;
-  border-radius: 1px;
+  background: var(--color-accent);
+  border-radius: 0;
   animation: ${blink} 1.1s steps(1) infinite;
 `;
-
 
 /* ------------------------------- scroll cue -------------------------------- */
 
@@ -171,29 +192,23 @@ const scrollLineDraw = keyframes`
   0% {
     transform: translateY(-101%);
   }
-  55% {
-    transform: translateY(101%);
-  }
-  100% {
+  55%, 100% {
     transform: translateY(101%);
   }
 `;
 
 export const StyledScrollCue = styled.a<{ $hidden: boolean }>`
   position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: var(--space-6);
+  left: 0;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 12px;
-  font-family: ${fontMono};
-  font-size: 0.65rem;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #6e6e76;
+  color: var(--color-muted);
   text-decoration: none;
   opacity: ${(props) => (props.$hidden ? 0 : 1)};
   visibility: ${(props) => (props.$hidden ? "hidden" : "visible")};
@@ -201,24 +216,26 @@ export const StyledScrollCue = styled.a<{ $hidden: boolean }>`
   transition:
     opacity 0.45s ease,
     visibility 0s linear ${(props) => (props.$hidden ? "0.45s" : "0s")},
-    color 0.2s ease;
+    color var(--dur-fast) ease;
+
+  /* 44px tap target; the cue shows on phones too, since the full-screen
+     hero no longer lets the next section peek in. */
+  min-height: 44px;
 
   &:hover {
-    color: #2b4eff;
+    color: var(--color-ink);
   }
 
-  &:focus-visible {
-    outline: 2px solid #2b4eff;
-    outline-offset: 4px;
-    border-radius: 4px;
+  ${media.md} {
+    bottom: var(--space-5);
   }
 `;
 
 export const StyledScrollLine = styled.span`
   display: block;
   width: 1px;
-  height: 44px;
-  background: #e4e4de;
+  height: 32px;
+  background: var(--color-hairline-strong);
   position: relative;
   overflow: hidden;
 
@@ -226,248 +243,260 @@ export const StyledScrollLine = styled.span`
     content: "";
     position: absolute;
     inset: 0;
-    background: #2b4eff;
-    animation: ${scrollLineDraw} 2.2s ${easeOut} infinite;
+    background: var(--color-ink);
+    animation: ${scrollLineDraw} 2.2s var(--ease-out) infinite;
   }
 `;
 
 /* --------------------------------- sections -------------------------------- */
 
-export const StyledSection = styled.section`
-  width: 100%;
-  padding: 72px 0 88px;
-  scroll-margin-top: 72px;
+// Heading in a narrow left column, content on the right. Collapses to one
+// column on smaller screens.
+export const StyledSection = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 200px) minmax(0, 1fr);
+  column-gap: var(--space-7);
+  padding: var(--space-9) 0;
+  border-top: 1px solid var(--color-hairline);
 
-  @media (max-width: 768px) {
-    padding: 56px 0 64px;
+  ${media.lg} {
+    grid-template-columns: 1fr;
+    padding: var(--space-8) 0;
   }
-`;
-
-export const StyledEyebrow = styled.p`
-  font-family: ${fontMono};
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #2b4eff;
-  margin: 0 0 12px;
 `;
 
 export const StyledHeading = styled.h2`
-  font-family: ${fontSans};
-  font-size: clamp(1.65rem, 4vw, 2rem);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #16161a;
-  margin: 0 0 20px;
-`;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+  color: var(--color-ink);
+  margin: 0;
 
-/* ---------------------------------- cards ---------------------------------- */
-
-export const StyledCardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-  width: 100%;
-  margin-top: 32px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  ${media.lg} {
+    margin-bottom: var(--space-5);
   }
 `;
 
-export const StyledCard = styled.article`
-  position: relative;
-  height: 100%;
-  padding: 28px;
-  border: 1px solid #e9e9e4;
-  border-radius: 12px;
-  background: #ffffff;
-  display: flex;
-  flex-direction: column;
-  transition:
-    transform 0.4s ${easeOut},
-    box-shadow 0.4s ${easeOut},
-    border-color 0.25s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(22, 22, 26, 0.08);
-    border-color: #dcdcd6;
-  }
-
-  @media (max-width: 768px) {
-    padding: 24px;
-  }
-`;
-
-export const StyledCardWebsiteBadge = styled.span`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: rgba(43, 78, 255, 0.08);
-  color: #2b4eff;
-  flex-shrink: 0;
-  pointer-events: none;
-`;
-
-export const StyledCardDemoLink = styled.a`
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
+export const StyledSectionBody = styled.div`
   min-width: 0;
-  flex: 1;
-
-  &:hover {
-    outline: none;
-  }
-`;
-
-export const StyledCardSourceLink = styled.a`
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 12px 0;
-  min-height: 44px;
-  font-family: ${fontSans};
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #6e6e76;
-  text-decoration: none;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: #2b4eff;
-  }
-`;
-
-export const StyledCardTitle = styled.h3`
-  font-family: ${fontSans};
-  font-size: 1.1rem;
-  font-weight: 650;
-  letter-spacing: -0.01em;
-  color: #16161a;
-  margin: 0 0 10px;
-  padding-right: 40px;
-`;
-
-export const StyledCardText = styled.p`
-  font-family: ${fontSans};
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: #3f3f46;
-  margin: 0 0 14px;
-`;
-
-export const StyledStack = styled.p`
-  margin: 4px 0 0;
-  font-family: ${fontMono};
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: #6e6e76;
 `;
 
 /* ------------------------------- text & lists ------------------------------ */
 
 export const StyledText = styled.p`
-  font-family: ${fontSans};
-  font-size: 1rem;
-  line-height: 1.75;
-  color: #3f3f46;
-  margin: 0 0 8px;
-  max-width: 720px;
+  font-size: var(--text-lg);
+  line-height: var(--leading-body);
+  color: var(--color-body);
+  margin: 0;
+  max-width: var(--measure);
+  text-wrap: pretty;
 `;
-
-export const StyledList = styled.ul`
-  font-family: ${fontSans};
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: #3f3f46;
-  margin: 4px 0 8px;
-  padding-left: 20px;
-  max-width: 720px;
-
-  li {
-    margin-bottom: 6px;
-  }
-
-  li::marker {
-    color: #2b4eff;
-  }
-`;
-
-export const StyledJob = styled.div`
-  margin-bottom: 32px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-export const StyledJobHeader = styled.p`
-  font-family: ${fontSans};
-  font-size: 1rem;
-  font-weight: 600;
-  color: #16161a;
-  margin: 0 0 6px;
-
-  span {
-    font-weight: 400;
-    color: #6e6e76;
-  }
-`;
-
-/* -------------------------------- tech pills ------------------------------- */
 
 export const StyledTechLabel = styled.p`
-  font-family: ${fontSans};
-  font-size: 0.95rem;
-  color: #3f3f46;
-  margin: 32px 0 16px;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: var(--space-7) 0 var(--space-3);
 `;
 
-export const StyledTechGridWrapper = styled.div`
+export const StyledTechRows = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-2);
 `;
 
-export const StyledTechGrid = styled.ul`
+export const StyledTechRow = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
   list-style: none;
   margin: 0;
   padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+
+  li + li::before {
+    content: "/";
+    color: var(--color-hairline-strong);
+    margin: 0 0.75em;
+  }
 `;
 
-export const StyledTechItem = styled.li`
-  font-family: ${fontSans};
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #3f3f46;
-  background: #ffffff;
-  border: 1px solid #e9e9e4;
-  border-radius: 999px;
-  padding: 9px 18px;
-  transition:
-    border-color 0.2s ease,
-    transform 0.3s ${easeOut};
+/* --------------------------- projects (spreads) ---------------------------- */
+
+// Featured projects as alternating spreads: cover on one side, text on the
+// other, swapping sides each row. Stacks (cover first) on small screens.
+export const StyledProjectSpreads = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+
+  ${media.md} {
+    gap: var(--space-7);
+  }
+`;
+
+export const StyledProjectSpread = styled.article<{ $flip: boolean }>`
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--space-6);
+  align-items: center;
+
+  > :first-child {
+    order: ${(p) => (p.$flip ? 2 : 0)};
+  }
+
+  ${media.md} {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+
+    > :first-child {
+      order: 0;
+    }
+  }
+`;
+
+// The cover, framed: 12px radius, hairline border, illustration that
+// cross-fades to the live-site screenshot on hover (see globals.css).
+// Link wrapper around the browser-frame cover (see CoverStyles.ts, which
+// darkens the frame border while this link is hovered).
+export const StyledSpreadCover = styled.a`
+  display: block;
+  border-radius: var(--radius-md);
+`;
+
+export const StyledSpreadStack = styled.p`
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  margin: 0;
+`;
+
+export const StyledSpreadTitle = styled.h3`
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: var(--leading-tight);
+  margin: var(--space-2) 0 var(--space-3);
+  text-wrap: balance;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--dur-fast) ease;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+  }
+`;
+
+export const StyledSpreadSummary = styled.p`
+  font-size: var(--text-md);
+  line-height: 1.65;
+  color: var(--color-body);
+  margin: 0 0 var(--space-4);
+`;
+
+export const StyledSpreadActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-hairline);
+  padding-top: var(--space-2);
+`;
+
+// The spread's main action (the case study).
+export const StyledSpreadLink = styled.a`
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: color var(--dur-fast) ease;
 
   &:hover {
-    border-color: #2b4eff;
-    transform: translateY(-2px);
+    color: var(--color-accent);
   }
+`;
+
+// Secondary project links (live site, source) as 44px icon buttons.
+export const StyledIconLinks = styled.div`
+  display: flex;
+  margin-left: auto;
+  margin-right: calc(var(--space-3) * -1);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-pill);
+    color: var(--color-muted);
+    ${hoverFade}
+  }
+
+  /* Borderless, so hover adds a soft circle rather than an ink fill.
+     Not behind media.hover, for the same reason as invertOnHover. */
+  a:hover {
+    color: var(--color-ink);
+    background: var(--color-paper-deep);
+  }
+
+  a:active {
+    color: var(--color-ink);
+    background: var(--color-hairline);
+  }
+`;
+
+/* -------------------------------- experience ------------------------------- */
+
+export const StyledJobs = styled.ol`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  max-width: var(--measure);
+`;
+
+export const StyledJob = styled.li`
+  margin: 0;
+`;
+
+export const StyledJobRole = styled.h3`
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-ink);
+  margin: 0;
+
+  span {
+    font-weight: 400;
+    color: var(--color-body);
+  }
+`;
+
+export const StyledJobMeta = styled.p`
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted);
+  margin: var(--space-1) 0 var(--space-3);
+`;
+
+export const StyledJobText = styled.p`
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+  color: var(--color-body);
+  margin: 0;
 `;
 
 /* ----------------------------------- nav ----------------------------------- */
@@ -478,65 +507,59 @@ export const StyledNav = styled.nav<{ $scrolled: boolean }>`
   left: 0;
   right: 0;
   z-index: 30;
-  padding: 14px 32px;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gutter);
   background: ${(props) =>
-    props.$scrolled ? "rgba(250, 250, 247, 0.85)" : "transparent"};
-  backdrop-filter: ${(props) => (props.$scrolled ? "blur(12px)" : "none")};
-  -webkit-backdrop-filter: ${(props) =>
-    props.$scrolled ? "blur(12px)" : "none"};
+    props.$scrolled ? "var(--color-paper)" : "transparent"};
   border-bottom: 1px solid
-    ${(props) => (props.$scrolled ? "#e9e9e4" : "transparent")};
+    ${(props) => (props.$scrolled ? "var(--color-hairline)" : "transparent")};
   transition:
-    background 0.3s ease,
-    border-color 0.3s ease;
-
-  @media (max-width: 768px) {
-    padding: 12px 20px;
-  }
+    background var(--dur-base) ease,
+    border-color var(--dur-base) ease;
 `;
 
 export const StyledNavContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1080px;
+  /* Same content width as StyledMain: the container minus its gutters
+     (this row sits inside the nav's own gutter padding). */
+  max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
   width: 100%;
 `;
 
-export const StyledNavLogo = styled.div`
+export const StyledNavLogo = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: #16161a;
-  color: #fafaf7;
-  font-family: ${fontSans};
-  font-size: 0.85rem;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition:
-    background 0.25s ease,
-    transform 0.3s ${easeOut};
+  text-decoration: none;
+  transition: background var(--dur-base) ease;
 
   &:hover {
-    background: #2b4eff;
-    transform: translateY(-1px);
+    background: var(--color-accent);
   }
 `;
 
 export const StyledNavList = styled.ul`
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: var(--space-6);
   list-style: none;
   margin: 0;
   padding: 0;
 
-  @media (max-width: 768px) {
+  ${media.md} {
     display: none;
   }
 `;
@@ -548,37 +571,33 @@ export const StyledNavItem = styled.li`
 
 export const StyledNavLink = styled.a<{ $isActive: boolean }>`
   position: relative;
-  font-family: ${fontSans};
-  font-size: 0.85rem;
-  font-weight: ${(props) => (props.$isActive ? "600" : "400")};
-  letter-spacing: 0.04em;
-  color: ${(props) => (props.$isActive ? "#16161a" : "#6e6e76")};
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: ${(props) =>
+    props.$isActive ? "var(--color-ink)" : "var(--color-muted)"};
   text-decoration: none;
-  padding: 10px 0;
-  transition: color 0.2s ease;
+  padding: var(--space-3) 0;
+  transition: color var(--dur-fast) ease;
 
   &::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: 4px;
+    bottom: 6px;
     height: 2px;
     width: ${(props) => (props.$isActive ? "100%" : "0")};
-    background: #2b4eff;
-    border-radius: 2px;
-    transition: width 0.3s ${easeOut};
+    background: var(--color-accent);
+    transition: width var(--dur-base) var(--ease-out);
   }
 
-  // Hover feedback only on devices with a real hover input: on touch screens
-  // :hover sticks to the last-tapped link and its underline is identical to
-  // the active-section one, which reads as two sections highlighted at once.
-  @media (hover: hover) {
+  /* Hover only on real pointers: on touch, :hover sticks to the last-tapped
+     link and looks like a second active section. */
+  ${media.hover} {
     &:hover {
-      color: #16161a;
-
-      &::after {
-        width: 100%;
-      }
+      color: var(--color-ink);
     }
   }
 `;
@@ -587,16 +606,17 @@ export const StyledHamburgerButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: #16161a;
+  color: var(--color-ink);
   cursor: pointer;
-  padding: 12px;
+  padding: var(--space-3);
+  margin-right: calc(var(--space-3) * -1);
   min-width: 44px;
   min-height: 44px;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 
-  @media (max-width: 768px) {
+  ${media.md} {
     display: inline-flex;
   }
 `;
@@ -604,30 +624,27 @@ export const StyledHamburgerButton = styled.button`
 export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
   display: none;
 
-  @media (max-width: 768px) {
+  ${media.md} {
     display: ${(props) => (props.$isOpen ? "block" : "none")};
     position: fixed;
-    top: 62px;
+    top: var(--nav-h);
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid #e9e9e4;
-    padding: 12px 20px 20px;
+    background: var(--color-paper);
+    border-bottom: 1px solid var(--color-hairline);
+    padding: var(--space-2) var(--gutter) var(--space-5);
     z-index: 29;
 
     ${StyledNavList} {
-      display: flex !important;
+      display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 4px;
+      gap: 0;
     }
 
     ${StyledNavLink} {
-      display: block;
-      font-size: 1rem;
-      padding: 12px 0;
+      font-size: var(--text-base);
+      padding: var(--space-3) 0;
     }
   }
 `;
@@ -635,92 +652,41 @@ export const StyledMobileMenu = styled.div<{ $isOpen: boolean }>`
 /* ---------------------------------- footer --------------------------------- */
 
 export const StyledFooter = styled.footer`
-  border-top: 1px solid #e9e9e4;
-  padding: 48px 32px;
-  font-family: ${fontSans};
-  text-align: center;
-
-  @media (max-width: 768px) {
-    padding: 40px 20px;
-  }
+  border-top: 1px solid var(--color-hairline);
+  padding: var(--space-7) var(--gutter);
 `;
 
 export const StyledFooterContent = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  max-width: 1080px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  /* Matches StyledMain's content width, as in StyledNavContent. */
+  max-width: calc(var(--container) - 2 * var(--gutter));
   margin: 0 auto;
 `;
 
-export const StyledFooterSocialLinks = styled.div`
+export const StyledFooterLinks = styled.div`
   display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
+  gap: var(--space-2);
 `;
 
-export const StyledFooterSocialLink = styled.a`
+export const StyledFooterLink = styled.a`
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
-  border: 1px solid #e9e9e4;
-  background: #ffffff;
-  color: #3f3f46;
-  text-decoration: none;
-  transition:
-    transform 0.3s ${easeOut},
-    color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.3s ${easeOut};
-
-  &:hover {
-    color: #2b4eff;
-    border-color: #2b4eff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(22, 22, 26, 0.08);
-  }
-`;
-
-export const StyledFooterEmailLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #e9e9e4;
-  background: #ffffff;
-  color: #3f3f46;
-  text-decoration: none;
-  transition:
-    transform 0.3s ${easeOut},
-    color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.3s ${easeOut};
-
-  &:hover {
-    color: #2b4eff;
-    border-color: #2b4eff;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(22, 22, 26, 0.08);
-  }
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-hairline);
+  background: var(--color-surface);
+  color: var(--color-body);
+  ${invertOnHover}
 `;
 
 export const StyledFooterCopyright = styled.p`
   margin: 0;
-  font-family: ${fontSans};
-  font-size: 0.8rem;
-  color: #6e6e76;
-`;
-
-export const StyledSeparator = styled.hr`
-  border: none;
-  border-top: 1px solid #e9e9e4;
-  margin: 40px 0 0;
-  width: 100%;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
 `;

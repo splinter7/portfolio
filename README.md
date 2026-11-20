@@ -20,6 +20,25 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Analytics (Umami)
+
+The site uses [Umami](https://umami.is), a cookieless analytics tool. It only
+loads in production builds, and only when a website ID is configured, so
+local development visits are never counted.
+
+1. Create a free Umami Cloud account and add your site to get its **Website ID**.
+2. In your hosting provider's environment settings, set
+   `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (and optionally `NEXT_PUBLIC_UMAMI_DOMAINS`
+   to your domain). See [.env.example](.env.example) for all options.
+3. Redeploy. Page views are tracked automatically, including navigation
+   between pages.
+
+Clicks are tracked as named events in [app/components/trackEvent.ts](app/components/trackEvent.ts):
+`resume`, `contact` (GitHub / LinkedIn / Email, in the hero or footer),
+`case-study` (which project, opened from the title, button, cover or "next"
+link), `live-site` and `source`. To track another link, spread
+`trackEvent("name", { key: "value" })` onto it.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
