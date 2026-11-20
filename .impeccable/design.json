@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-20T16:49:35.380Z",
+  "title": "Design System: Stewart Small Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#fafaf7",
+        "tonalRamp": [
+          "#1f1f1c",
+          "#3a3a35",
+          "#5c5c55",
+          "#86867d",
+          "#b3b3a9",
+          "#d9d9d0",
+          "#f3f3ed",
+          "#fafaf7"
+        ]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Paper Deep",
+        "canonical": "#f3f3ed"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#ffffff"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#16161a",
+        "tonalRamp": [
+          "#16161a",
+          "#2a2a30",
+          "#3f3f46",
+          "#56565e",
+          "#6e6e76",
+          "#9a9aa0",
+          "#c9c9cc",
+          "#ececee"
+        ]
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body",
+        "canonical": "#3f3f46"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "canonical": "#6e6e76"
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e9e9e4"
+      },
+      "hairline-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "#d4d4cd"
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Signal Blue",
+        "canonical": "#2b4eff",
+        "tonalRamp": [
+          "#0b1660",
+          "#13248f",
+          "#1c35c4",
+          "#2b4eff",
+          "#5873ff",
+          "#8a9dff",
+          "#bcc8ff",
+          "#e6ebff"
+        ]
+      },
+      "accent-soft": {
+        "role": "primary",
+        "displayName": "Signal Blue Wash",
+        "canonical": "rgba(43, 78, 255, 0.14)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The owner's name in the hero. One per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "About text and hero subtitle, max 65ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav links, buttons, card actions."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Commands, tech names, stacks, dates. Real data only."
+      },
+      "body-sm": {
+        "displayName": "Body Small",
+        "purpose": "Project summaries on the home page."
+      },
+      "page-title": {
+        "displayName": "Page title",
+        "purpose": "Case study titles."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Code excerpts in project covers; scales with the frame."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Default easing for state changes and the nav underline."
+      },
+      {
+        "name": "dur-fast",
+        "value": "160ms",
+        "purpose": "Text colour changes on hover; pressed states."
+      },
+      {
+        "name": "dur-base",
+        "value": "240ms",
+        "purpose": "Border, nav background and underline transitions; hover fade-in."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.45, 0, 0.55, 1)",
+        "purpose": "Hover colour fades on pills and icon buttons: reaches 50% at half the duration, so it reads as a fade."
+      },
+      {
+        "name": "dur-slow",
+        "value": "400ms",
+        "purpose": "Hover fade-out on pills and icon buttons."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "960px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Pill Link Button",
+      "kind": "button",
+      "refersTo": "button-pill",
+      "description": "Hero contact links: icon plus label in a surface pill.",
+      "html": "<a class=\"ds-pill\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M2 5h20v14H2z M2 5l10 8 10-8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg>Email</a>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; box-sizing: border-box; font: 500 0.875rem/1 Inter, system-ui, sans-serif; color: #16161a; background: #ffffff; border: 1px solid #e9e9e4; border-radius: 999px; text-decoration: none; transition: background-color 400ms cubic-bezier(0.45, 0, 0.55, 1), border-color 400ms cubic-bezier(0.45, 0, 0.55, 1), color 400ms cubic-bezier(0.45, 0, 0.55, 1); } .ds-pill:hover { transition-duration: 240ms; background: #16161a; border-color: #16161a; color: #fafaf7; } .ds-pill:active { transition-duration: 160ms; background: #3f3f46; border-color: #3f3f46; color: #fafaf7; } .ds-pill:focus-visible { outline: 2px solid #2b4eff; outline-offset: 3px; }"
+    },
+    {
+      "name": "Project Cover",
+      "kind": "custom",
+      "refersTo": "project-cover",
+      "description": "The project in a minimal browser window: screenshot, code excerpt, or title.",
+      "html": "<span class=\"ds-browser\"><span class=\"ds-browser-bar\"><span class=\"ds-dots\"><span></span></span><span class=\"ds-address\">github.com/splinter7/audio-streaming</span></span><span class=\"ds-view\"><span class=\"ds-file\">server/index.js</span><span class=\"ds-code\"><span class=\"c\">// Check buffered amount for flow control</span><span class=\"hl\">if (dataChannel.bufferedAmount &lt; 256 * 1024) {</span><span>  dataChannel.send(chunk);</span><span>  chunkIndex++;</span><span>}</span></span></span></span>",
+      "css": ".ds-browser { display: flex; flex-direction: column; width: 420px; overflow: hidden; background: #ffffff; border: 1px solid #d4d4cd; border-radius: 12px; } .ds-browser-bar { display: flex; align-items: center; gap: 12px; height: 32px; padding: 0 12px; background: #f3f3ed; border-bottom: 1px solid #e9e9e4; } .ds-dots { display: inline-flex; gap: 5px; } .ds-dots::before, .ds-dots::after, .ds-dots span { content: ''; display: block; width: 8px; height: 8px; border-radius: 999px; background: #d4d4cd; } .ds-address { flex: 1; max-width: 70%; margin: 0 auto; padding: 2px 12px; border-radius: 999px; background: #ffffff; font: 0.75rem/1.5 'JetBrains Mono', monospace; color: #6e6e76; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-view { display: flex; flex-direction: column; aspect-ratio: 16 / 10; background: #16161a; color: #fafaf7; font: 11px/1.6 'JetBrains Mono', monospace; font-variant-ligatures: none; } .ds-file { padding: 8px 16px; border-bottom: 1px solid rgba(250,250,247,0.12); color: rgba(250,250,247,0.55); } .ds-code { display: flex; flex-direction: column; justify-content: center; flex: 1; } .ds-code span { padding: 0 16px; white-space: pre; } .ds-code .hl { background: rgba(250,250,247,0.10); } .ds-code .c { color: rgba(250,250,247,0.5); }"
+    },
+    {
+      "name": "Project Spread",
+      "kind": "card",
+      "refersTo": "project-cover",
+      "description": "Featured project: browser-frame cover beside stack, title, summary and links. Alternates sides per row.",
+      "html": "<article class=\"ds-spread\"><a class=\"ds-spread-cover\" href=\"#\" aria-hidden=\"true\" tabindex=\"-1\"></a><div><p class=\"ds-spread-stack\">JavaScript · Web Audio API · Vite</p><h3 class=\"ds-spread-title\"><a href=\"#\">Audio BPM Detector</a></h3><p class=\"ds-spread-summary\">A beat detection app that analyzes audio files and outputs BPM.</p><div class=\"ds-spread-actions\"><a class=\"ds-spread-link\" href=\"#\">Case study →</a><span class=\"ds-spread-icons\"><a href=\"#\" aria-label=\"Live site\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20\"/></svg></a><a href=\"#\" aria-label=\"Source\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><path d=\"M8 6l-6 6 6 6M16 6l6 6-6 6\"/></svg></a></span></div></div></article>",
+      "css": ".ds-spread { display: grid; grid-template-columns: 1.15fr 1fr; gap: 32px; align-items: center; width: 680px; font-family: Inter, system-ui, sans-serif; } .ds-spread-cover { display: block; aspect-ratio: 16 / 11; background: linear-gradient(#f3f3ed 0 32px, #ffffff 32px); border: 1px solid #d4d4cd; border-radius: 12px; transition: border-color 240ms cubic-bezier(0.45, 0, 0.55, 1); } .ds-spread-cover:hover { border-color: #6e6e76; } .ds-spread-stack { font: 0.75rem/1.5 'JetBrains Mono', monospace; color: #6e6e76; margin: 0; } .ds-spread-title { font: 700 clamp(1.75rem, 3.6vw, 2.25rem)/1.1 'Bricolage Grotesque', Inter, sans-serif; letter-spacing: -0.025em; margin: 8px 0 12px; } .ds-spread-title a { color: #16161a; text-decoration: none; transition: color 160ms ease; } .ds-spread-title a:hover { color: #2b4eff; } .ds-spread-summary { font-size: 0.9375rem; line-height: 1.65; color: #3f3f46; margin: 0 0 16px; } .ds-spread-actions { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #e9e9e4; padding-top: 8px; } .ds-spread-link { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.875rem; font-weight: 600; color: #16161a; text-decoration: none; } .ds-spread-link:hover { color: #2b4eff; } .ds-spread-icons a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: #6e6e76; text-decoration: none; } .ds-spread-icons a { border-radius: 999px; transition: background-color 400ms cubic-bezier(0.45, 0, 0.55, 1), border-color 400ms cubic-bezier(0.45, 0, 0.55, 1), color 400ms cubic-bezier(0.45, 0, 0.55, 1); } .ds-spread-icons a:hover { transition-duration: 240ms; color: #16161a; background: #f3f3ed; } .ds-spread-icons a:active { transition-duration: 160ms; background: #e9e9e4; }"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "description": "Logo block plus text links; active item in ink with a blue underline.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-logo\" href=\"#\">S.</a><ul><li><a href=\"#\">Home</a></li><li><a class=\"is-active\" href=\"#\">About</a></li><li><a href=\"#\">Projects</a></li><li><a href=\"#\">Experience</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 32px; background: #fafaf7; border-bottom: 1px solid #e9e9e4; font-family: Inter, system-ui, sans-serif; } .ds-nav-logo { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; background: #16161a; color: #fafaf7; font: 700 0.9rem 'Bricolage Grotesque', Inter, sans-serif; text-decoration: none; transition: background 240ms ease; } .ds-nav-logo:hover { background: #2b4eff; } .ds-nav ul { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; } .ds-nav ul a { position: relative; display: inline-block; padding: 12px 0; font-size: 0.875rem; font-weight: 500; color: #6e6e76; text-decoration: none; transition: color 160ms ease; } .ds-nav ul a:hover, .ds-nav ul a.is-active { color: #16161a; } .ds-nav ul a.is-active::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 2px; background: #2b4eff; }"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Footer social links: 44px round, hairline border.",
+      "html": "<a class=\"ds-icon-btn\" href=\"#\" aria-label=\"Email\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M2 5h20v14H2z M2 5l10 8 10-8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></a>",
+      "css": ".ds-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; border: 1px solid #e9e9e4; background: #ffffff; color: #3f3f46; transition: background-color 400ms cubic-bezier(0.45, 0, 0.55, 1), border-color 400ms cubic-bezier(0.45, 0, 0.55, 1), color 400ms cubic-bezier(0.45, 0, 0.55, 1); } .ds-icon-btn:hover { transition-duration: 240ms; background: #16161a; border-color: #16161a; color: #fafaf7; } .ds-icon-btn:active { transition-duration: 160ms; background: #3f3f46; border-color: #3f3f46; color: #fafaf7; } .ds-icon-btn:focus-visible { outline: 2px solid #2b4eff; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Signal",
+    "overview": "The page reads like a well-set engineering notebook. Warm paper, near-black ink, generous margins, and a single electric blue that only shows up where something is happening: the active nav item, the prompt in the whoami line, a focused control. Everything else stays quiet so that the work (projects, roles, outcomes) carries the page.\n\nIdentity comes from the Bricolage Grotesque display face, which has enough ink-trap character to feel authored, and from restraint: nothing on the page is decorative unless it carries content. The whoami prompt above the name is the one playful touch, and it earns its place because the name answers it. Sections are separated by hairlines and whitespace, not by labels, numbers, or boxes.\n\nThe site is light-only and calm. Hover feedback changes color, border or fill, never position or shadow.",
+    "keyCharacteristics": [
+      "Warm off-white paper with ink typography and one accent",
+      "Left-aligned, editorial layout: heading column on the left, content on the right",
+      "Flat surfaces separated by 1px hairlines; no shadows",
+      "Almost no motion: a blinking cursor in the hero and the project cover animations, nothing on scroll",
+      "Monospace reserved for real data: commands, tech names, dates"
+    ],
+    "rules": [
+      {
+        "name": "The One Signal Rule",
+        "body": "Signal Blue marks state or liveness (active, focused, live), never decoration. If a screen has blue on more than a few small elements, remove some.",
+        "section": "colors"
+      },
+      {
+        "name": "The Real Mono Rule",
+        "body": "JetBrains Mono is only for strings a terminal or a spreadsheet would show: commands, technology names, dates. Never for headings, kickers, or \"technical flavor\".",
+        "section": "typography"
+      },
+      {
+        "name": "The No Kicker Rule",
+        "body": "No eyebrow labels or section numbers above headings. The heading is the label.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Paper Rule",
+        "body": "If something needs to look raised, make it surface on paper with a hairline border. Never add box-shadow or translateY on hover.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do take every color, size, space, radius and duration from the CSS custom properties in app/styles/GlobalStyles.ts.",
+      "Do keep Signal Blue to state and liveness: active, focused, live.",
+      "Do keep 44px minimum touch targets on every link and button.",
+      "Do keep hover styles behind media.hover only when a stuck hover would mislead on touch screens (nav links). Buttons and pills apply :hover directly, because some desktop setups report no hover support.",
+      "Do honor prefers-reduced-motion; globals.css already zeroes animation and transition durations."
+    ],
+    "donts": [
+      "Don't add eyebrow labels, kickers, or section numbers (\"01 · About\").",
+      "Don't lift elements on hover or add drop shadows.",
+      "Don't wrap sections in staggered fade-up reveals or add scroll-triggered animation.",
+      "Don't add decorative motifs (waveforms, particles, background graphics) that nothing else on the page connects to.",
+      "Don't add film grain, noise overlays, gradient text, or glass/blur panels.",
+      "Don't use monospace for anything that isn't code or data.",
+      "Don't hard-code hex values in components; add a token if one is missing.",
+      "Don't draw stand-in illustrations for projects; show a screenshot, real code or the title."
+    ]
+  }
+}
