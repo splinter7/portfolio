@@ -17,16 +17,11 @@ coverCode:
       chunkIndex++;
     }
     chunkTimeoutId = setTimeout(sendChunk, 50); // ~20 chunks per second
-draft: true
 ---
-
-<!-- CHECK: Draft written from the repo's README, docs/ and source. Confirm the "why" in the overview, and add your role. -->
 
 ## Overview
 
 A browser audio player that streams an MP3 from a Node server over a WebRTC DataChannel instead of a plain HTTP download. The server sends the file in chunks, and the client buffers, decodes and plays them through the Web Audio API, with play, pause and stop controls and a live buffering readout.
-
-<!-- CHECK: Why did you build this? A prototype for work, an interview exercise, curiosity about WebRTC? One sentence here makes the rest land. -->
 
 ## The challenge
 
@@ -63,4 +58,3 @@ The result streams reliably, recovers from dropped connections with a retry, and
 
 Next steps I'd take: decode in a Web Worker to keep the main thread free, move to streaming decode with the MediaSource API instead of re-decoding accumulated buffers, and switch to Opus for better compression than MP3.
 
-<!-- CHECK: Add anything you learned or would do differently, in your own words. -->

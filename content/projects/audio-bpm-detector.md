@@ -6,10 +6,7 @@ stack: [JavaScript, Web Audio API, Vite, Vercel Functions]
 source: https://github.com/splinter7/frontend-audio-processor
 live: https://frontend-audio-processor.vercel.app/
 year: 2026
-draft: true
 ---
-
-<!-- CHECK: Draft written from the repo's README and source. Add your role and why you built it. -->
 
 ## Overview
 
@@ -39,6 +36,5 @@ Decoding is the only part that differs. The browser uses the Web Audio API's `de
 
 ## Outcome
 
-A small, deployable tool with a private-by-default browser flow, an optional server path and a CLI. For the best results it needs a few seconds of audio with a clear beat. Next I'd move analysis into a Web Worker so long files don't block the page, and show detected beat positions on a waveform.
+A small, deployable tool with a private-by-default browser flow, an optional server path and a CLI. For the best results it needs a few seconds of audio with a clear beat.
 
-<!-- CHECK: Add anything you learned or would change. -->

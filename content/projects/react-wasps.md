@@ -6,10 +6,7 @@ stack: [React, Vite, GSAP, styled-components, Web Audio API]
 source: https://github.com/splinter7/React-Wasps
 live: https://react-wasps.vercel.app/
 year: 2020
-draft: true
 ---
-
-<!-- CHECK: Created in 2020 with Create React App and later moved to Vite (package.json uses Vite and React 18; the README still describes CRA). Confirm the timeline, update the README if you like, and add your role. -->
 
 ## Overview
 
@@ -43,4 +40,3 @@ Making a few sprites feel alive without them moving in lockstep, and tying a vis
 
 A small, self-contained animation piece that combines sprite animation, tweening and live audio analysis. It's also where I first connected Web Audio analysis to visuals, an idea I've kept coming back to.
 
-<!-- CHECK: The last sentence is a guess. Keep it only if it's true. -->

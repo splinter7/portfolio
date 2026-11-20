@@ -1,17 +1,12 @@
 ---
 title: JCarousel JavaScript Carousel Library
-summary: A JavaScript carousel library that calculates the position of the carousel items and the number of items to display based on the container width.
+summary: A dependency-free JavaScript carousel that loops infinitely, keeping five items in view with the centre item as the current selection.
 order: 2
 stack: [JavaScript, HTML, CSS]
 source: https://github.com/splinter7/JCarousel
 live: https://j-carousel.vercel.app/
 year: 2020
-draft: true
 ---
-
-<!-- CHECK: The summary (from your current card) says the number of items adapts to the container width. The repo's README and JCarousel.js describe a fixed five-item window. If the demo adds the responsive sizing, mention it in Approach; if not, update the summary. -->
-
-<!-- CHECK: The repo was created in 2020 and updated in 2026. Pick the year you want shown, and add your role. -->
 
 ## Overview
 
@@ -35,12 +30,7 @@ Because the logic is plain JavaScript, it can be exercised in a browser console:
 
 **Keyboard support in the demo.** Arrow keys mirror the buttons, so the carousel isn't mouse-only.
 
-**A threat model alongside the code.** The repo includes an OWASP Threat Dragon model of the carousel, a sign of thinking about security even for a small UI component.
-
-<!-- CHECK: Confirm why you made the Threat Dragon model, or delete that point. -->
-
 ## Outcome
 
-A compact, framework-agnostic carousel class with a live demo. If I picked it up again, I'd make the window size configurable, add touch and swipe support, and publish it as a module with tests around the wrap-around edge cases.
+A compact, framework-agnostic carousel class with a live demo.
 
-<!-- CHECK: Replace "Outcome" with what actually happened: did you use it in a product? -->
